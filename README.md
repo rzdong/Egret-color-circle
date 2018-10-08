@@ -3,3 +3,6 @@
 
 # tips
 没有发布，没有写完
+
+![Image text](https://raw.githubusercontent.com/Easte-r/picture/master/game-picture.png)
+
