@@ -1,0 +1,32 @@
+{
+  "engineVersion": "5.2.7",
+  "compilerVersion": "5.2.7",
+  "template": {},
+  "target": {
+    "current": "web"
+  },
+  "modules": [
+    {
+      "name": "egret"
+    },
+    {
+      "name": "eui"
+    },
+    {
+      "name": "assetsmanager"
+    },
+    {
+      "name": "tween"
+    },
+    {
+      "name": "game"
+    },
+    {
+      "name": "promise"
+    },
+    {
+      "name": "particle",
+      "path": "../libs/particle"
+    }
+  ]
+}

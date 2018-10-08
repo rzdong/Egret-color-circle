@@ -1,0 +1,230 @@
+{
+	"groups": [
+		{
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,progress_json,progress_png,circle6-sheet0_png,loadingbg_jpg,setting_png,share_png,table_png,about_png,friend_png,home1_png,menu_png,play_png,bgParticle_json,bgParticle_png,circle-yellow_png,circle-red_png,circle-blue_png,circle-dyellow_png,circle-violte_png,circle-green_png,start-btn_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/CheckBox/checkbox_select_disabled.png",
+			"type": "image",
+			"name": "checkbox_select_disabled_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_down.png",
+			"type": "image",
+			"name": "checkbox_select_down_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_up.png",
+			"type": "image",
+			"name": "checkbox_select_up_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_unselect.png",
+			"type": "image",
+			"name": "checkbox_unselect_png"
+		},
+		{
+			"url": "assets/ItemRenderer/selected.png",
+			"type": "image",
+			"name": "selected_png"
+		},
+		{
+			"url": "assets/Panel/border.png",
+			"type": "image",
+			"name": "border_png"
+		},
+		{
+			"url": "assets/Panel/header.png",
+			"type": "image",
+			"name": "header_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_disabled.png",
+			"type": "image",
+			"name": "radiobutton_select_disabled_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_down.png",
+			"type": "image",
+			"name": "radiobutton_select_down_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_up.png",
+			"type": "image",
+			"name": "radiobutton_select_up_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_unselect.png",
+			"type": "image",
+			"name": "radiobutton_unselect_png"
+		},
+		{
+			"url": "assets/ScrollBar/roundthumb.png",
+			"type": "image",
+			"name": "roundthumb_png"
+		},
+		{
+			"url": "assets/Slider/thumb.png",
+			"type": "image",
+			"name": "thumb_png"
+		},
+		{
+			"url": "assets/Slider/track.png",
+			"type": "image",
+			"name": "track_png"
+		},
+		{
+			"url": "assets/Slider/tracklight.png",
+			"type": "image",
+			"name": "tracklight_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/handle.png",
+			"type": "image",
+			"name": "handle_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/off.png",
+			"type": "image",
+			"name": "off_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/on.png",
+			"type": "image",
+			"name": "on_png"
+		},
+		{
+			"url": "assets/Button/button_down.png",
+			"type": "image",
+			"name": "button_down_png"
+		},
+		{
+			"url": "assets/Button/button_up.png",
+			"type": "image",
+			"name": "button_up_png"
+		},
+		{
+			"url": "assets/ProgressBar/thumb_pb.png",
+			"type": "image",
+			"name": "thumb_pb_png"
+		},
+		{
+			"url": "assets/ProgressBar/track_pb.png",
+			"type": "image",
+			"name": "track_pb_png"
+		},
+		{
+			"url": "assets/ScrollBar/track_sb.png",
+			"type": "image",
+			"name": "track_sb_png"
+		},
+		{
+			"url": "effect_res/progress.json",
+			"type": "json",
+			"name": "progress_json"
+		},
+		{
+			"url": "effect_res/progress.png",
+			"type": "image",
+			"name": "progress_png"
+		},
+		{
+			"url": "game_res/circle6-sheet0.png",
+			"type": "image",
+			"name": "circle6-sheet0_png"
+		},
+		{
+			"url": "game_res/loadingbg.jpg",
+			"type": "image",
+			"name": "loadingbg_jpg"
+		},
+		{
+			"url": "game_res/setting.png",
+			"type": "image",
+			"name": "setting_png"
+		},
+		{
+			"url": "game_res/share.png",
+			"type": "image",
+			"name": "share_png"
+		},
+		{
+			"url": "game_res/table.png",
+			"type": "image",
+			"name": "table_png"
+		},
+		{
+			"url": "game_res/about.png",
+			"type": "image",
+			"name": "about_png"
+		},
+		{
+			"url": "game_res/friend.png",
+			"type": "image",
+			"name": "friend_png"
+		},
+		{
+			"url": "game_res/home1.png",
+			"type": "image",
+			"name": "home1_png"
+		},
+		{
+			"url": "game_res/menu.png",
+			"type": "image",
+			"name": "menu_png"
+		},
+		{
+			"url": "game_res/play.png",
+			"type": "image",
+			"name": "play_png"
+		},
+		{
+			"url": "effect_res/bgParticle.json",
+			"type": "json",
+			"name": "bgParticle_json"
+		},
+		{
+			"url": "effect_res/bgParticle.png",
+			"type": "image",
+			"name": "bgParticle_png"
+		},
+		{
+			"url": "game_res/circle-yellow.png",
+			"type": "image",
+			"name": "circle-yellow_png"
+		},
+		{
+			"url": "game_res/circle-red.png",
+			"type": "image",
+			"name": "circle-red_png"
+		},
+		{
+			"url": "game_res/circle-blue.png",
+			"type": "image",
+			"name": "circle-blue_png"
+		},
+		{
+			"url": "game_res/circle-dyellow.png",
+			"type": "image",
+			"name": "circle-dyellow_png"
+		},
+		{
+			"url": "game_res/circle-violte.png",
+			"type": "image",
+			"name": "circle-violte_png"
+		},
+		{
+			"url": "game_res/circle-green.png",
+			"type": "image",
+			"name": "circle-green_png"
+		},
+		{
+			"url": "game_res/start-btn.png",
+			"type": "image",
+			"name": "start-btn_png"
+		}
+	]
+}

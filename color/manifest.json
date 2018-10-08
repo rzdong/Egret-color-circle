@@ -1,0 +1,35 @@
+{
+	"initial": [
+		"libs/modules/egret/egret.js",
+		"libs/modules/egret/egret.web.js",
+		"libs/modules/eui/eui.js",
+		"libs/modules/assetsmanager/assetsmanager.js",
+		"libs/modules/tween/tween.js",
+		"libs/modules/game/game.js",
+		"libs/modules/promise/promise.js",
+		"libs/modules/particle/particle.js"
+	],
+	"game": [
+		"bin-debug/_Common/_BaseUILayer.js",
+		"bin-debug/_Common/_BaseDisplayOC.js",
+		"bin-debug/_BaseRes/AssetAdapter.js",
+		"bin-debug/_BaseRes/LoadingUI.js",
+		"bin-debug/_BaseRes/Platform.js",
+		"bin-debug/_BaseRes/ThemeAdapter.js",
+		"bin-debug/GameScene.js",
+		"bin-debug/_Common/_BaseEUIGroup.js",
+		"bin-debug/_Common/_BaseShape.js",
+		"bin-debug/_Common/_BaseSprite.js",
+		"bin-debug/Main.js",
+		"bin-debug/_Common/NetBitmap.js",
+		"bin-debug/_Common/Util.js",
+		"bin-debug/_GameEvent/Event.js",
+		"bin-debug/_Model/Data.js",
+		"bin-debug/BackgroundContainer/BackgroundContainer.js",
+		"bin-debug/GameContainer/About.js",
+		"bin-debug/GameContainer/Game.js",
+		"bin-debug/GameContainer/GameContainer.js",
+		"bin-debug/GameContainer/Home.js",
+		"bin-debug/PopContainer/PopContainer.js"
+	]
+}
