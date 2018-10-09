@@ -20,16 +20,53 @@ var GameContainer = (function (_super) {
         // 初始化游戏层
     };
     GameContainer.prototype.createGame = function () {
-        this.game = new Game();
+        if (this.contains(this.game)) {
+            this.removeChild(this.game);
+        }
+        this.game = new Game(this);
         this.addChild(this.game);
     };
     GameContainer.prototype.createAbout = function () {
-        if (this.about) {
-            this.addChild(this.about);
-            return;
+        if (this.contains(this.about)) {
+            this.removeChild(this.about);
         }
-        this.about = new About();
+        this.about = new About(this);
         this.addChild(this.about);
+    };
+    GameContainer.prototype.createHome = function () {
+        if (this.contains(this.home)) {
+            this.removeChild(this.home);
+        }
+        this.home = new Home(this);
+        this.addChild(this.home);
+    };
+    GameContainer.prototype.createRank = function () {
+        if (this.contains(this.rank)) {
+            this.removeChild(this.rank);
+        }
+        this.rank = new Rank(this);
+        this.addChild(this.rank);
+    };
+    GameContainer.prototype.createSetting = function () {
+        if (this.contains(this.setting)) {
+            this.removeChild(this.setting);
+        }
+        this.setting = new Setting(this);
+        this.addChild(this.setting);
+    };
+    GameContainer.prototype.createGrade = function () {
+        if (this.contains(this.grade)) {
+            this.removeChild(this.grade);
+        }
+        this.grade = new Grade(this);
+        this.addChild(this.grade);
+    };
+    GameContainer.prototype.createSuggest = function () {
+        if (this.contains(this.suggest)) {
+            this.removeChild(this.suggest);
+        }
+        this.suggest = new Suggest(this);
+        this.addChild(this.suggest);
     };
     return GameContainer;
 }(BaseUILayer));

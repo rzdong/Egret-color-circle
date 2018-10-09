@@ -1,4 +1,4 @@
-class About extends BaseUILayer {
+class Suggest extends BaseUILayer {
 
 	private _GameContainer: GameContainer;
 
@@ -53,30 +53,30 @@ class About extends BaseUILayer {
 		this.swiper.verticalScrollBar.visible = false;
 
 
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
+		group.addChild(new eui.Label('建议'))
 
 		this.addChild(this.swiper)
 	

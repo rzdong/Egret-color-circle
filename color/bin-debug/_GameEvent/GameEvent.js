@@ -32,7 +32,8 @@ var GameEvent = (function (_super) {
      * 事件传递参数
      */
     GameEvent.DATE = "事件名字";
+    GameEvent.changeScene = "changeScene";
     return GameEvent;
 }(egret.Event));
 __reflect(GameEvent.prototype, "GameEvent");
-//# sourceMappingURL=Event.js.map
+//# sourceMappingURL=GameEvent.js.map

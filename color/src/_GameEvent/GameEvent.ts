@@ -23,4 +23,8 @@ class GameEvent extends egret.Event {
     public static DATE:string = "事件名字";
     public _year: number = 0;
     
+
+    public static changeScene: string = "changeScene";
+    public sceneType: string;
+
 }

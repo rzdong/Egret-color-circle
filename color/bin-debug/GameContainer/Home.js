@@ -22,17 +22,17 @@ var Home = (function (_super) {
         console.log('Home已加载');
         var Width = this.stage.stageWidth;
         var Height = this.stage.stageHeight;
-        var circleImg = Util.createBitmapByName('circle6-sheet0_png');
-        circleImg.width = 500;
-        circleImg.height = 500;
-        circleImg.scaleX = 0.01;
-        circleImg.scaleY = 0.01;
-        circleImg.x = Width / 2;
-        circleImg.y = Height / 2 - 100;
-        circleImg.anchorOffsetX = circleImg.width / 2;
-        circleImg.anchorOffsetY = circleImg.height / 2;
-        circleImg.alpha = 0.1;
-        this.addChild(circleImg);
+        this.circleImg = Util.createBitmapByName('circle6-sheet0_png');
+        this.circleImg.width = 500;
+        this.circleImg.height = 500;
+        this.circleImg.scaleX = 0.01;
+        this.circleImg.scaleY = 0.01;
+        this.circleImg.x = Width / 2;
+        this.circleImg.y = Height / 2 - 100;
+        this.circleImg.anchorOffsetX = this.circleImg.width / 2;
+        this.circleImg.anchorOffsetY = this.circleImg.height / 2;
+        this.circleImg.alpha = 0.1;
+        this.addChild(this.circleImg);
         this.ball = new egret.Bitmap();
         this.ball.scaleX = 0.01;
         this.ball.scaleY = 0.01;
@@ -44,38 +44,54 @@ var Home = (function (_super) {
         this.ball.anchorOffsetX = this.ball.width / 2;
         this.ball.anchorOffsetY = this.ball.height / 2;
         this.addChild(this.ball);
-        egret.Tween.get(circleImg).wait(200).to({ scaleX: 1, scaleY: 1, alpha: 1 }, 400, egret.Ease.backOut).call(function () {
-            egret.Tween.removeTweens(circleImg);
-            egret.Tween.get(circleImg, { loop: true })
-                .wait(800)
-                .wait(50)
-                .to({ rotation: 60 }, 300, egret.Ease.sineInOut).wait(1250)
-                .wait(50)
-                .to({ rotation: 180 }, 300, egret.Ease.sineInOut).wait(1250)
-                .wait(50)
-                .to({ rotation: 120 }, 300, egret.Ease.sineInOut).wait(1250)
-                .wait(50)
-                .to({ rotation: 180 }, 300, egret.Ease.sineInOut).wait(1250)
-                .wait(50)
-                .to({ rotation: 0 }, 300, egret.Ease.sineInOut).wait(1250);
+        egret.Tween.get(this.circleImg).wait(200).to({ scaleX: 1, scaleY: 1, alpha: 1 }, 400, egret.Ease.backOut).call(function () {
+            egret.Tween.removeTweens(_this.circleImg);
+            setTimeout(function () {
+                egret.Tween.get(_this.circleImg, { loop: true })
+                    .wait(50)
+                    .to({ rotation: 60 }, 300, egret.Ease.sineInOut).wait(1250)
+                    .wait(50)
+                    .to({ rotation: 180 }, 300, egret.Ease.sineInOut).wait(1250)
+                    .wait(50)
+                    .to({ rotation: 120 }, 300, egret.Ease.sineInOut).wait(1250)
+                    .wait(50)
+                    .to({ rotation: 180 }, 300, egret.Ease.sineInOut).wait(1250)
+                    .wait(50)
+                    .to({ rotation: 0 }, 300, egret.Ease.sineInOut).wait(1250)
+                    .wait(50)
+                    .to({ rotation: -120 }, 300, egret.Ease.sineInOut).wait(1250)
+                    .wait(50)
+                    .to({ rotation: -60 }, 300, egret.Ease.sineInOut).wait(1250)
+                    .wait(50)
+                    .to({ rotation: 0 }, 300, egret.Ease.sineInOut).wait(1250);
+            }, 800);
         });
         egret.Tween.get(this.ball).wait(200).to({ scaleX: 1, scaleY: 1, alpha: 1 }, 400, egret.Ease.backOut).call(function () {
             egret.Tween.removeTweens(_this.ball);
-            egret.Tween.get(_this.ball, { loop: true }).to({ y: 450 }, 800, egret.Ease.sineIn).call(function () {
+            egret.Tween.get(_this.ball, { loop: true }).to({ y: 450 }, 800, egret.Ease.cubicIn).call(function () {
                 _this.ball.texture = RES.getRes('circle-green_png');
-            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.sineOut).call(function () {
-            }).to({ y: 450 }, 800, egret.Ease.sineIn).call(function () {
+            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.cubicOut).call(function () {
+            }).to({ y: 450 }, 800, egret.Ease.cubicIn).call(function () {
                 _this.ball.texture = RES.getRes('circle-red_png');
-            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.sineOut).call(function () {
-            }).to({ y: 450 }, 800, egret.Ease.sineIn).call(function () {
+            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.cubicOut).call(function () {
+            }).to({ y: 450 }, 800, egret.Ease.cubicIn).call(function () {
                 _this.ball.texture = RES.getRes('circle-yellow_png');
-            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.sineOut).call(function () {
-            }).to({ y: 450 }, 800, egret.Ease.sineIn).call(function () {
+            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.cubicOut).call(function () {
+            }).to({ y: 450 }, 800, egret.Ease.cubicIn).call(function () {
                 _this.ball.texture = RES.getRes('circle-red_png');
-            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.sineOut).call(function () {
-            }).to({ y: 450 }, 800, egret.Ease.sineIn).call(function () {
+            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.cubicOut).call(function () {
+            }).to({ y: 450 }, 800, egret.Ease.cubicIn).call(function () {
                 _this.ball.texture = RES.getRes('circle-violte_png');
-            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.sineOut).call(function () {
+            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.cubicOut).call(function () {
+            }).to({ y: 450 }, 800, egret.Ease.cubicIn).call(function () {
+                _this.ball.texture = RES.getRes('circle-blue_png');
+            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.cubicOut).call(function () {
+            }).to({ y: 450 }, 800, egret.Ease.cubicIn).call(function () {
+                _this.ball.texture = RES.getRes('circle-dyellow_png');
+            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.cubicOut).call(function () {
+            }).to({ y: 450 }, 800, egret.Ease.cubicIn).call(function () {
+                _this.ball.texture = RES.getRes('circle-violte_png');
+            }).to({ y: Height / 2 - 200 }, 800, egret.Ease.cubicOut).call(function () {
             });
         });
         this.startBtn = Util.createBitmapByName('start-btn_png');
@@ -88,9 +104,6 @@ var Home = (function (_super) {
         this.startBtn.y = Height + this.startBtn.height / 2;
         this.addChild(this.startBtn);
         this.startBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startBegin, this);
-        egret.Tween.get(this.startBtn).to({ y: Height - this.startBtn.height / 2 }, 400, egret.Ease.backOut).call(function () {
-            egret.Tween.removeTweens(_this.startBtn);
-        });
         /**
          * 关于 按钮
          */
@@ -121,9 +134,6 @@ var Home = (function (_super) {
         aboutText.y = (this.aboutBtn.height - aboutText.size) / 2 + 3;
         this.aboutBtn.addChild(aboutText);
         this.aboutBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.aboutBegin, this);
-        egret.Tween.get(this.aboutBtn).wait(100).to({ x: this.aboutBtn.width / 2 }, 400, egret.Ease.backOut).call(function () {
-            egret.Tween.removeTweens(_this.aboutBtn);
-        });
         /**
          * 分享按钮
          */
@@ -153,9 +163,6 @@ var Home = (function (_super) {
         shareText.y = (this.shareBtn.height - shareText.size) / 2;
         this.shareBtn.addChild(shareText);
         this.shareBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.shareBegin, this);
-        egret.Tween.get(this.shareBtn).wait(50).to({ x: this.shareBtn.width / 2 }, 400, egret.Ease.backOut).call(function () {
-            egret.Tween.removeTweens(_this.shareBtn);
-        });
         /**
          * 排行榜按钮
          */
@@ -185,9 +192,6 @@ var Home = (function (_super) {
         rankText.y = (this.rankBtn.height - rankText.size) / 2 + 3;
         this.rankBtn.addChild(rankText);
         this.rankBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.rankBegin, this);
-        egret.Tween.get(this.rankBtn).to({ x: this.rankBtn.width / 2 }, 400, egret.Ease.backOut).call(function () {
-            egret.Tween.removeTweens(_this.rankBtn);
-        });
         /**
          * 设置按钮
          */
@@ -217,9 +221,6 @@ var Home = (function (_super) {
         settingText.y = (this.settingBtn.height - settingText.size) / 2 + 2;
         this.settingBtn.addChild(settingText);
         this.settingBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.settingBegin, this);
-        egret.Tween.get(this.settingBtn).to({ x: Width - this.settingBtn.width / 2 }, 400, egret.Ease.backOut).call(function () {
-            egret.Tween.removeTweens(_this.settingBtn);
-        });
         /**
          * 难度按钮
          */
@@ -249,9 +250,6 @@ var Home = (function (_super) {
         gradeText.y = (this.gradeBtn.height - gradeText.size) / 2 + 3;
         this.gradeBtn.addChild(gradeText);
         this.gradeBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.gradeBegin, this);
-        egret.Tween.get(this.gradeBtn).wait(50).to({ x: Width - this.gradeBtn.width / 2 }, 400, egret.Ease.backOut).call(function () {
-            egret.Tween.removeTweens(_this.gradeBtn);
-        });
         /**
          * 建议按钮
          */
@@ -281,6 +279,24 @@ var Home = (function (_super) {
         suggestText.y = (this.suggestBtn.height - suggestText.size) / 2;
         this.suggestBtn.addChild(suggestText);
         this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.suggestBegin, this);
+        egret.Tween.get(this.startBtn).to({ y: Height - this.startBtn.height / 2 }, 400, egret.Ease.backOut).call(function () {
+            egret.Tween.removeTweens(_this.startBtn);
+        });
+        egret.Tween.get(this.aboutBtn).wait(100).to({ x: this.aboutBtn.width / 2 }, 400, egret.Ease.backOut).call(function () {
+            egret.Tween.removeTweens(_this.aboutBtn);
+        });
+        egret.Tween.get(this.shareBtn).wait(50).to({ x: this.shareBtn.width / 2 }, 400, egret.Ease.backOut).call(function () {
+            egret.Tween.removeTweens(_this.shareBtn);
+        });
+        egret.Tween.get(this.rankBtn).to({ x: this.rankBtn.width / 2 }, 400, egret.Ease.backOut).call(function () {
+            egret.Tween.removeTweens(_this.rankBtn);
+        });
+        egret.Tween.get(this.settingBtn).to({ x: Width - this.settingBtn.width / 2 }, 400, egret.Ease.backOut).call(function () {
+            egret.Tween.removeTweens(_this.settingBtn);
+        });
+        egret.Tween.get(this.gradeBtn).wait(50).to({ x: Width - this.gradeBtn.width / 2 }, 400, egret.Ease.backOut).call(function () {
+            egret.Tween.removeTweens(_this.gradeBtn);
+        });
         egret.Tween.get(this.suggestBtn).wait(100).to({ x: Width - this.suggestBtn.width / 2 }, 400, egret.Ease.backOut).call(function () {
             egret.Tween.removeTweens(_this.suggestBtn);
         });
@@ -300,8 +316,7 @@ var Home = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入关于');
-            this.removeChildren();
-            this.parent.removeChild(this);
+            this.removeSelf();
             this._GameContainer.createAbout();
         }
     };
@@ -337,6 +352,8 @@ var Home = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入排行');
+            this.removeSelf();
+            this._GameContainer.createRank();
         }
     };
     Home.prototype.settingBegin = function () {
@@ -354,6 +371,8 @@ var Home = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入设置');
+            this.removeSelf();
+            this._GameContainer.createSetting();
         }
     };
     Home.prototype.gradeBegin = function () {
@@ -371,6 +390,8 @@ var Home = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入难度等级');
+            this.removeSelf();
+            this._GameContainer.createGrade();
         }
     };
     Home.prototype.suggestBegin = function () {
@@ -388,6 +409,8 @@ var Home = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入建议');
+            this.removeSelf();
+            this._GameContainer.createSuggest();
         }
     };
     Home.prototype.startBegin = function () {
@@ -405,10 +428,19 @@ var Home = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入游戏');
-            this.removeChildren();
-            this.parent.removeChild(this);
+            this.removeSelf();
             this._GameContainer.createGame();
         }
+    };
+    Home.prototype.removeSelf = function () {
+        this.startBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startBegin, this);
+        this.aboutBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.aboutBegin, this);
+        this.shareBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.shareBegin, this);
+        this.rankBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.rankBegin, this);
+        this.settingBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.settingBegin, this);
+        this.gradeBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.gradeBegin, this);
+        this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.suggestBegin, this);
+        this.parent.removeChild(this);
     };
     return Home;
 }(BaseUILayer));

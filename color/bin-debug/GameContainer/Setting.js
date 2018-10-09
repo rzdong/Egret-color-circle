@@ -8,14 +8,14 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
-var About = (function (_super) {
-    __extends(About, _super);
-    function About(GC) {
+var Setting = (function (_super) {
+    __extends(Setting, _super);
+    function Setting(GC) {
         var _this = _super.call(this) || this;
         _this._GameContainer = GC;
         return _this;
     }
-    About.prototype.init = function () {
+    Setting.prototype.init = function () {
         var _this = this;
         var Width = 800;
         var Height = 500;
@@ -49,42 +49,42 @@ var About = (function (_super) {
         this.addChild(this.swiper);
         this.swiper.verticalScrollBar.autoVisibility = false;
         this.swiper.verticalScrollBar.visible = false;
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
+        group.addChild(new eui.Label('设置'));
         this.addChild(this.swiper);
         egret.Tween.get(this.swiper).to({ verticalCenter: 0 }, 400, egret.Ease.backOut).call(function () {
             egret.Tween.removeTweens(_this.swiper);
         });
     };
-    About.prototype.backBegin = function () {
+    Setting.prototype.backBegin = function () {
         this.backBitmap.scaleX = 0.9;
         this.backBitmap.scaleY = 0.9;
         this.backBitmap.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.backEnd, this);
         this.backBitmap.addEventListener(egret.TouchEvent.TOUCH_END, this.backEnd, this);
     };
-    About.prototype.backEnd = function (ev) {
+    Setting.prototype.backEnd = function (ev) {
         this.backBitmap.scaleX = 1;
         this.backBitmap.scaleY = 1;
         this.backBitmap.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.backEnd, this);
@@ -97,11 +97,11 @@ var About = (function (_super) {
             this._GameContainer.createHome();
         }
     };
-    About.prototype.beforeRemove = function () {
+    Setting.prototype.beforeRemove = function () {
         this.backBitmap.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.backEnd, this);
         this.parent.removeChild(this);
     };
-    return About;
+    return Setting;
 }(BaseUILayer));
-__reflect(About.prototype, "About");
-//# sourceMappingURL=About.js.map
+__reflect(Setting.prototype, "Setting");
+//# sourceMappingURL=Setting.js.map

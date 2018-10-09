@@ -5,7 +5,7 @@
  * 
  */
 
-class Data {
+class Data extends egret.EventDispatcher{
     public static data: Data = null;
     public static i(): Data{
         if(this.data){

@@ -10,9 +10,9 @@
 		"libs/modules/particle/particle.js"
 	],
 	"game": [
-		"bin-debug/_Common/_BaseUILayer.js",
 		"bin-debug/_Common/_BaseDisplayOC.js",
-		"bin-debug/_BaseRes/AssetAdapter.js",
+		"bin-debug/_Common/_BaseUILayer.js",
+		"bin-debug/_Common/Util.js",
 		"bin-debug/_BaseRes/LoadingUI.js",
 		"bin-debug/_BaseRes/Platform.js",
 		"bin-debug/_BaseRes/ThemeAdapter.js",
@@ -20,16 +20,20 @@
 		"bin-debug/_Common/_BaseEUIGroup.js",
 		"bin-debug/_Common/_BaseShape.js",
 		"bin-debug/_Common/_BaseSprite.js",
-		"bin-debug/Main.js",
+		"bin-debug/_BaseRes/AssetAdapter.js",
 		"bin-debug/_Common/NetBitmap.js",
-		"bin-debug/_Common/Util.js",
-		"bin-debug/_GameEvent/Event.js",
+		"bin-debug/Main.js",
+		"bin-debug/_GameEvent/GameEvent.js",
 		"bin-debug/_Model/Data.js",
 		"bin-debug/BackgroundContainer/BackgroundContainer.js",
 		"bin-debug/GameContainer/About.js",
 		"bin-debug/GameContainer/Game.js",
 		"bin-debug/GameContainer/GameContainer.js",
+		"bin-debug/GameContainer/Grade.js",
 		"bin-debug/GameContainer/Home.js",
+		"bin-debug/GameContainer/Rank.js",
+		"bin-debug/GameContainer/Setting.js",
+		"bin-debug/GameContainer/Suggest.js",
 		"bin-debug/PopContainer/PopContainer.js"
 	]
 }

@@ -10,7 +10,7 @@ class Home extends BaseUILayer {
 
     private startBtn: egret.Bitmap;
 
-
+    private circleImg: egret.Bitmap;
     private ball: egret.Bitmap;
     private ballV: number = 0;
     private ballA: number = 200;
@@ -31,18 +31,18 @@ class Home extends BaseUILayer {
 
 
 
-        let circleImg = Util.createBitmapByName('circle6-sheet0_png');
+        this.circleImg = Util.createBitmapByName('circle6-sheet0_png');
         
-        circleImg.width = 500;
-        circleImg.height = 500;
-        circleImg.scaleX = 0.01;
-        circleImg.scaleY = 0.01;
-        circleImg.x = Width / 2;
-        circleImg.y = Height / 2 - 100;
-        circleImg.anchorOffsetX = circleImg.width / 2;
-        circleImg.anchorOffsetY = circleImg.height / 2;
-        circleImg.alpha = 0.1
-        this.addChild(circleImg);
+        this.circleImg.width = 500;
+        this.circleImg.height = 500;
+        this.circleImg.scaleX = 0.01;
+        this.circleImg.scaleY = 0.01;
+        this.circleImg.x = Width / 2;
+        this.circleImg.y = Height / 2 - 100;
+        this.circleImg.anchorOffsetX = this.circleImg.width / 2;
+        this.circleImg.anchorOffsetY = this.circleImg.height / 2;
+        this.circleImg.alpha = 0.1
+        this.addChild(this.circleImg);
         
 
         this.ball = new egret.Bitmap();
@@ -57,10 +57,10 @@ class Home extends BaseUILayer {
         this.ball.anchorOffsetY = this.ball.height / 2;
         this.addChild(this.ball)
 
-        egret.Tween.get(circleImg).wait(200).to({scaleX: 1, scaleY: 1, alpha: 1}, 400, egret.Ease.backOut).call(() => {
-            egret.Tween.removeTweens(circleImg);
-            egret.Tween.get(circleImg, {loop: true})
-                .wait(800)
+        egret.Tween.get(this.circleImg).wait(200).to({scaleX: 1, scaleY: 1, alpha: 1}, 400, egret.Ease.backOut).call(() => {
+            egret.Tween.removeTweens(this.circleImg);
+            setTimeout(() => {
+                egret.Tween.get(this.circleImg, {loop: true})
                 .wait(50)
                 .to({rotation: 60}, 300, egret.Ease.sineInOut).wait(1250)
                 .wait(50)
@@ -71,30 +71,50 @@ class Home extends BaseUILayer {
                 .to({rotation: 180}, 300, egret.Ease.sineInOut).wait(1250)
                 .wait(50)
                 .to({rotation: 0}, 300, egret.Ease.sineInOut).wait(1250)
+                .wait(50)
+                .to({rotation: -120}, 300, egret.Ease.sineInOut).wait(1250)
+                .wait(50)
+                .to({rotation: -60}, 300, egret.Ease.sineInOut).wait(1250)
+                .wait(50)
+                .to({rotation: 0}, 300, egret.Ease.sineInOut).wait(1250)
+            }, 800)
+            
         })
 
         egret.Tween.get(this.ball).wait(200).to({scaleX: 1, scaleY: 1, alpha: 1}, 400, egret.Ease.backOut).call(() => {
             egret.Tween.removeTweens(this.ball);
 
-            egret.Tween.get(this.ball, {loop: true}).to({y: 450}, 800, egret.Ease.sineIn).call(() => {
+            egret.Tween.get(this.ball, {loop: true}).to({y: 450}, 800, egret.Ease.cubicIn).call(() => {
                 this.ball.texture = RES.getRes('circle-green_png')
-            }).to({y: Height / 2 - 200}, 800, egret.Ease.sineOut).call(() => {
+            }).to({y: Height / 2 - 200}, 800, egret.Ease.cubicOut).call(() => {
                 
-            }).to({y: 450}, 800, egret.Ease.sineIn).call(() => {
+            }).to({y: 450}, 800, egret.Ease.cubicIn).call(() => {
                 this.ball.texture = RES.getRes('circle-red_png')
-            }).to({y: Height / 2 - 200}, 800, egret.Ease.sineOut).call(() => {
+            }).to({y: Height / 2 - 200}, 800, egret.Ease.cubicOut).call(() => {
                 
-            }).to({y: 450}, 800, egret.Ease.sineIn).call(() => {
+            }).to({y: 450}, 800, egret.Ease.cubicIn).call(() => {
                 this.ball.texture = RES.getRes('circle-yellow_png')
-            }).to({y: Height / 2 - 200}, 800, egret.Ease.sineOut).call(() => {
+            }).to({y: Height / 2 - 200}, 800, egret.Ease.cubicOut).call(() => {
                 
-            }).to({y: 450}, 800, egret.Ease.sineIn).call(() => {
+            }).to({y: 450}, 800, egret.Ease.cubicIn).call(() => {
                 this.ball.texture = RES.getRes('circle-red_png')
-            }).to({y: Height / 2 - 200}, 800, egret.Ease.sineOut).call(() => {
+            }).to({y: Height / 2 - 200}, 800, egret.Ease.cubicOut).call(() => {
                 
-            }).to({y: 450}, 800, egret.Ease.sineIn).call(() => {
+            }).to({y: 450}, 800, egret.Ease.cubicIn).call(() => {
                 this.ball.texture = RES.getRes('circle-violte_png')
-            }).to({y: Height / 2 - 200}, 800, egret.Ease.sineOut).call(() => {
+            }).to({y: Height / 2 - 200}, 800, egret.Ease.cubicOut).call(() => {
+                
+            }).to({y: 450}, 800, egret.Ease.cubicIn).call(() => {
+                this.ball.texture = RES.getRes('circle-blue_png')
+            }).to({y: Height / 2 - 200}, 800, egret.Ease.cubicOut).call(() => {
+                
+            }).to({y: 450}, 800, egret.Ease.cubicIn).call(() => {
+                this.ball.texture = RES.getRes('circle-dyellow_png')
+            }).to({y: Height / 2 - 200}, 800, egret.Ease.cubicOut).call(() => {
+                
+            }).to({y: 450}, 800, egret.Ease.cubicIn).call(() => {
+                this.ball.texture = RES.getRes('circle-violte_png')
+            }).to({y: Height / 2 - 200}, 800, egret.Ease.cubicOut).call(() => {
                 
             })
 
@@ -112,9 +132,7 @@ class Home extends BaseUILayer {
         this.addChild(this.startBtn);
 
         this.startBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startBegin, this)
-        egret.Tween.get(this.startBtn).to({y: Height - this.startBtn.height / 2}, 400, egret.Ease.backOut).call(() => {
-            egret.Tween.removeTweens(this.startBtn)
-        })
+        
 
 
         /**
@@ -151,9 +169,7 @@ class Home extends BaseUILayer {
 
         this.aboutBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.aboutBegin, this)
 
-        egret.Tween.get(this.aboutBtn).wait(100).to({x: this.aboutBtn.width / 2}, 400, egret.Ease.backOut).call(() => {
-            egret.Tween.removeTweens(this.aboutBtn)
-        })
+        
 
         /**
          * 分享按钮
@@ -186,9 +202,7 @@ class Home extends BaseUILayer {
         shareText.y = (this.shareBtn.height - shareText.size) / 2;
         this.shareBtn.addChild(shareText)
         this.shareBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.shareBegin, this)
-        egret.Tween.get(this.shareBtn).wait(50).to({x: this.shareBtn.width / 2}, 400, egret.Ease.backOut).call(() => {
-            egret.Tween.removeTweens(this.shareBtn)
-        })
+        
 
         /**
          * 排行榜按钮
@@ -221,9 +235,7 @@ class Home extends BaseUILayer {
         rankText.y = (this.rankBtn.height - rankText.size) / 2 + 3;
         this.rankBtn.addChild(rankText)
         this.rankBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.rankBegin, this)
-        egret.Tween.get(this.rankBtn).to({x: this.rankBtn.width / 2}, 400, egret.Ease.backOut).call(() => {
-            egret.Tween.removeTweens(this.rankBtn)
-        })
+        
 
 
         /**
@@ -258,9 +270,7 @@ class Home extends BaseUILayer {
         this.settingBtn.addChild(settingText)
         this.settingBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.settingBegin, this)
 
-        egret.Tween.get(this.settingBtn).to({x: Width - this.settingBtn.width / 2}, 400, egret.Ease.backOut).call(() => {
-            egret.Tween.removeTweens(this.settingBtn)
-        })
+        
 
 
         /**
@@ -294,9 +304,7 @@ class Home extends BaseUILayer {
         gradeText.y = (this.gradeBtn.height - gradeText.size) / 2 + 3;
         this.gradeBtn.addChild(gradeText)
         this.gradeBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.gradeBegin, this)
-        egret.Tween.get(this.gradeBtn).wait(50).to({x: Width - this.gradeBtn.width / 2}, 400, egret.Ease.backOut).call(() => {
-            egret.Tween.removeTweens(this.gradeBtn)
-        })
+        
 
 
         /**
@@ -331,6 +339,31 @@ class Home extends BaseUILayer {
         this.suggestBtn.addChild(suggestText)
         this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.suggestBegin, this)
 
+
+        egret.Tween.get(this.startBtn).to({y: Height - this.startBtn.height / 2}, 400, egret.Ease.backOut).call(() => {
+            egret.Tween.removeTweens(this.startBtn)
+        })
+
+        egret.Tween.get(this.aboutBtn).wait(100).to({x: this.aboutBtn.width / 2}, 400, egret.Ease.backOut).call(() => {
+            egret.Tween.removeTweens(this.aboutBtn)
+        })
+
+        egret.Tween.get(this.shareBtn).wait(50).to({x: this.shareBtn.width / 2}, 400, egret.Ease.backOut).call(() => {
+            egret.Tween.removeTweens(this.shareBtn)
+        })
+
+        egret.Tween.get(this.rankBtn).to({x: this.rankBtn.width / 2}, 400, egret.Ease.backOut).call(() => {
+            egret.Tween.removeTweens(this.rankBtn)
+        })
+
+        egret.Tween.get(this.settingBtn).to({x: Width - this.settingBtn.width / 2}, 400, egret.Ease.backOut).call(() => {
+            egret.Tween.removeTweens(this.settingBtn)
+        })
+
+        egret.Tween.get(this.gradeBtn).wait(50).to({x: Width - this.gradeBtn.width / 2}, 400, egret.Ease.backOut).call(() => {
+            egret.Tween.removeTweens(this.gradeBtn)
+        })
+
         egret.Tween.get(this.suggestBtn).wait(100).to({x: Width - this.suggestBtn.width / 2}, 400, egret.Ease.backOut).call(() => {
             egret.Tween.removeTweens(this.suggestBtn)
         })
@@ -353,9 +386,8 @@ class Home extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入关于')
-            this.removeChildren()
-            this.parent.removeChild(this);
-            this._GameContainer.createAbout();
+            this.removeSelf();
+            this._GameContainer.createAbout()
         }
     }
 
@@ -392,6 +424,8 @@ class Home extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入排行')
+            this.removeSelf();
+            this._GameContainer.createRank();
         }
     }
 
@@ -411,6 +445,8 @@ class Home extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入设置')
+            this.removeSelf();
+            this._GameContainer.createSetting();
         }
     }
 
@@ -429,6 +465,8 @@ class Home extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入难度等级')
+            this.removeSelf();
+            this._GameContainer.createGrade();
         }
     }
 
@@ -448,8 +486,13 @@ class Home extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入建议')
+            this.removeSelf();
+            this._GameContainer.createSuggest();
         }
     }
+
+
+    
     private startBegin(): void {
         this.startBtn.scaleX = 0.9;
         this.startBtn.scaleY = 0.9;
@@ -465,12 +508,24 @@ class Home extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入游戏')
-            this.removeChildren()
-            this.parent.removeChild(this);
+            this.removeSelf();
             this._GameContainer.createGame();
         }
     }
 
+
+
+
+    private removeSelf(): void {
+        this.startBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startBegin, this)
+        this.aboutBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.aboutBegin, this)
+        this.shareBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.shareBegin, this)
+        this.rankBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.rankBegin, this)
+        this.settingBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.settingBegin, this)
+        this.gradeBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.gradeBegin, this)
+        this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.suggestBegin, this)
+        this.parent.removeChild(this)
+    }
 
     // egret.Ticker.getInstance().register(this.dtCallBack, this)
     // private dtCallBack(dt:number) {

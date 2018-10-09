@@ -10,10 +10,10 @@ r.prototype = e.prototype, t.prototype = new r();
 };
 var Game = (function (_super) {
     __extends(Game, _super);
-    // private circleStatus: Array<any> = []
-    function Game() {
+    function Game(GC) {
         var _this = _super.call(this) || this;
         _this.currentDeg = 0;
+        _this._GameContainer = GC;
         return _this;
     }
     Game.prototype.init = function () {
@@ -21,6 +21,16 @@ var Game = (function (_super) {
         console.log('Game已加载');
         this.colorList = ['violet', 'dyellow', 'blue', 'red', 'yellow', 'green'];
         this.currentColorIndex = 0;
+        this.backBitmap = Util.createBitmapByName('back_png');
+        this.backBitmap.touchEnabled = true;
+        this.backBitmap.width = 200 * 0.6;
+        this.backBitmap.height = 130 * 0.5;
+        this.backBitmap.anchorOffsetX = this.backBitmap.width / 2;
+        this.backBitmap.anchorOffsetY = this.backBitmap.height / 2;
+        this.backBitmap.x = this.backBitmap.width / 2 + 10;
+        this.backBitmap.y = this.backBitmap.height / 2 + 16;
+        this.addChild(this.backBitmap);
+        this.backBitmap.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.backBegin, this);
         var Width = this.stage.stageWidth;
         var Height = this.stage.stageHeight;
         this.leftBtn = new egret.Sprite();
@@ -126,35 +136,13 @@ var Game = (function (_super) {
         }
     };
     Game.prototype.beforeRemove = function () {
-        var _this = this;
-        var Width = this.stage.stageWidth;
-        var Height = this.stage.stageHeight;
-        egret.Tween.get(this.leftBtn).to({ x: -this.leftBtn.width }, 500, egret.Ease.backIn).call(function () {
-            console.log('左侧移除完成');
-            egret.Tween.removeTweens(_this.leftBtn);
-            _this.removeSelf();
-        });
-        egret.Tween.get(this.rightBtn).to({ x: Width }, 500, egret.Ease.backIn).call(function () {
-            console.log('右侧移除完成');
-            egret.Tween.removeTweens(_this.rightBtn);
-            _this.removeSelf();
-        });
-        egret.Tween.get(this.circleGroup).to({ y: -Height / 2 }, 500, egret.Ease.backIn).call(function () {
-            console.log('顶部移除完成');
-            egret.Tween.removeTweens(_this.circleGroup);
-            _this.removeSelf();
-        });
-    };
-    Game.prototype.removeSelf = function () {
-        if (this.parent) {
-            this.leftBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.LeftBegin, this);
-            this.rightBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.RightBegin, this);
-            this.removeChild(this.leftBtn);
-            this.removeChild(this.rightBtn);
-            this.removeChild(this.circleGroup);
-            this.parent.removeChild(this);
-            console.log('remove');
-        }
+        this.leftBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.LeftBegin, this);
+        this.rightBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.RightBegin, this);
+        this.removeChild(this.leftBtn);
+        this.removeChild(this.rightBtn);
+        this.removeChild(this.circleGroup);
+        this.parent.removeChild(this);
+        console.log('remove');
     };
     Game.prototype.leftRound = function () {
         var _this = this;
@@ -187,6 +175,25 @@ var Game = (function (_super) {
         egret.Tween.get(this.circleGroup).to({ rotation: currTemp }, 200, egret.Ease.circInOut).call(function () {
             // console.log(this.colorList[this.currentColorIndex], this.currentColorIndex, this.currentDeg , this.circleGroup.rotation)
         });
+    };
+    Game.prototype.backBegin = function () {
+        this.backBitmap.scaleX = 0.9;
+        this.backBitmap.scaleY = 0.9;
+        this.backBitmap.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.backEnd, this);
+        this.backBitmap.addEventListener(egret.TouchEvent.TOUCH_END, this.backEnd, this);
+    };
+    Game.prototype.backEnd = function (ev) {
+        this.backBitmap.scaleX = 1;
+        this.backBitmap.scaleY = 1;
+        this.backBitmap.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.backEnd, this);
+        this.backBitmap.removeEventListener(egret.TouchEvent.TOUCH_END, this.backEnd, this);
+        if (ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE) {
+        }
+        else if (ev.type == egret.TouchEvent.TOUCH_END) {
+            console.log('进入游戏');
+            this.beforeRemove();
+            this._GameContainer.createHome();
+        }
     };
     return Game;
 }(BaseUILayer));
