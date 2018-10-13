@@ -34,6 +34,11 @@ class WxgamePlatform {
         })
     }
 
+  openCustomerServiceConversation(){
+
+    wx.openCustomerServiceConversation();
+  }
+
     openDataContext = new WxgameOpenDataContext();
 }
 

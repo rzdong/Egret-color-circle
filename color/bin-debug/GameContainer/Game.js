@@ -12,7 +12,7 @@ var Game = (function (_super) {
     __extends(Game, _super);
     function Game(GC) {
         var _this = _super.call(this) || this;
-        _this.currentDeg = 0;
+        _this.currentDeg = 0; // 当前转过的角度。
         _this._GameContainer = GC;
         return _this;
     }

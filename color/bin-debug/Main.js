@@ -154,7 +154,9 @@ var Main = (function (_super) {
      * Create scene interface
      */
     Main.prototype.createGameScene = function () {
+        Data.i().toast = new Toast();
         this.addChild(new GameScene());
+        this.addChild(Data.i().toast);
         // let sky = new NetBitmap('https://static01.coloros.com/bbs/data/attachment/forum/201312/27/174621xzs8lj9gzi28npu2.jpg')
         // this.addChild(sky);
         // let stageW = this.stage.stageWidth;

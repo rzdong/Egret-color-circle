@@ -17,7 +17,9 @@ r.prototype = e.prototype, t.prototype = new r();
 var Data = (function (_super) {
     __extends(Data, _super);
     function Data() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.toast = null;
+        return _this;
     }
     Data.i = function () {
         if (this.data) {
@@ -27,6 +29,9 @@ var Data = (function (_super) {
             this.data = new Data();
             return this.data;
         }
+    };
+    Data.prototype.Toast = function (str, time) {
+        this.toast.Toast(str);
     };
     Data.data = null;
     return Data;

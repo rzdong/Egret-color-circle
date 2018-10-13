@@ -17,8 +17,8 @@ var About = (function (_super) {
     }
     About.prototype.init = function () {
         var _this = this;
-        var Width = 800;
-        var Height = 500;
+        var Width = this.stage.stageWidth - 300;
+        var Height = this.stage.stageHeight - 200;
         this.backBitmap = Util.createBitmapByName('back_png');
         this.backBitmap.touchEnabled = true;
         this.backBitmap.width = 200 * 0.6;
@@ -30,7 +30,7 @@ var About = (function (_super) {
         this.addChild(this.backBitmap);
         this.backBitmap.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.backBegin, this);
         var vLayout = new eui.VerticalLayout();
-        vLayout.gap = 10;
+        vLayout.gap = 60;
         vLayout.paddingTop = 15;
         vLayout.paddingRight = 15;
         vLayout.paddingBottom = 15;
@@ -49,22 +49,7 @@ var About = (function (_super) {
         this.addChild(this.swiper);
         this.swiper.verticalScrollBar.autoVisibility = false;
         this.swiper.verticalScrollBar.visible = false;
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
-        group.addChild(new eui.Label('任振东'));
+        group.addChild(new eui.Label('1. 点击左右控制圆环转动，在球落下的时候，保证下方的颜色与球颜色一致'));
         group.addChild(new eui.Label('任振东'));
         group.addChild(new eui.Label('任振东'));
         group.addChild(new eui.Label('任振东'));
@@ -74,6 +59,7 @@ var About = (function (_super) {
         group.addChild(new eui.Label('任振东'));
         group.addChild(new eui.Label('任振东'));
         this.addChild(this.swiper);
+        var label = new eui.Label('');
         egret.Tween.get(this.swiper).to({ verticalCenter: 0 }, 400, egret.Ease.backOut).call(function () {
             egret.Tween.removeTweens(_this.swiper);
         });

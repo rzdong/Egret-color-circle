@@ -10,6 +10,9 @@ declare interface Platform {
 
     login(): Promise<any>
 
+    openCustomerServiceConversation(): Promise<any>
+
+    showShareMenu(obj: any)
 }
 
 class DebugPlatform implements Platform {
@@ -17,6 +20,14 @@ class DebugPlatform implements Platform {
         return { nickName: "username" }
     }
     async login() {
+
+    }
+    
+    async openCustomerServiceConversation() {
+        
+    }
+
+    showShareMenu(obj: any) {
 
     }
 }

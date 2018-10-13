@@ -22,6 +22,14 @@ class Home extends BaseUILayer {
         this._GameContainer = GC;
     }
 
+    private get factor(){
+        return this.factor
+    }
+
+    private set factor(value){
+
+    }
+
 
     protected init() :void {
         console.log('Home已加载')
@@ -131,8 +139,98 @@ class Home extends BaseUILayer {
         this.startBtn.y = Height + this.startBtn.height / 2;
         this.addChild(this.startBtn);
 
-        this.startBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startBegin, this)
+        var color:number = 0x33CCFF;        /// 光晕的颜色，十六进制，不包含透明度
+        var alpha:number = 0.3;             /// 光晕的颜色透明度，是对 color 参数的透明度设定。有效值为 0.0 到 1.0。例如，0.8 设置透明度值为 80%。
+        var blurX:number = 70;              /// 水平模糊量。有效值为 0 到 255.0（浮点）
+        var blurY:number = 70;              /// 垂直模糊量。有效值为 0 到 255.0（浮点）
+        var strength:number = 2;            /// 压印的强度，值越大，压印的颜色越深，而且发光与背景之间的对比度也越强。有效值为 0 到 255。暂未实现
+        var quality:number = egret.BitmapFilterQuality.HIGH;        /// 应用滤镜的次数，建议用 BitmapFilterQuality 类的常量来体现
+        var inner:boolean = false;            /// 指定发光是否为内侧发光，暂未实现
+        var knockout:boolean = false;            /// 指定对象是否具有挖空效果，暂未实现
+        var glowFilter:egret.GlowFilter = new egret.GlowFilter( color, alpha, blurX, blurY,
+            strength, quality, inner, knockout );
+
+        let vertexSrc =
+            "attribute vec2 aVertexPosition;\n" +
+            "attribute vec2 aTextureCoord;\n" +
+            "attribute vec2 aColor;\n" +
+
+            "uniform vec2 projectionVector;\n" +
+
+            "varying vec2 vTextureCoord;\n" +
+            "varying vec4 vColor;\n" +
+
+            "const vec2 center = vec2(-1.0, 1.0);\n" +
+
+            "void main(void) {\n" +
+            "   gl_Position = vec4( (aVertexPosition / projectionVector) + center , 0.0, 1.0);\n" +
+            "   vTextureCoord = aTextureCoord;\n" +
+            "   vColor = vec4(aColor.x, aColor.x, aColor.x, aColor.x);\n" +
+            "}";
+        let fragmentSrc1 = [
+            "precision lowp float;\n" +
+            "varying vec2 vTextureCoord;",
+            "varying vec4 vColor;\n",
+            "uniform sampler2D uSampler;",
+
+            "uniform vec2 center;",
+            "uniform vec3 params;", // 10.0, 0.8, 0.1"
+            "uniform float time;",
+
+            "void main()",
+            "{",
+            "vec2 uv = vTextureCoord.xy;",
+            "vec2 texCoord = uv;",
+
+            "float dist = distance(uv, center);",
+
+            "if ( (dist <= (time + params.z)) && (dist >= (time - params.z)) )",
+            "{",
+            "float diff = (dist - time);",
+            "float powDiff = 1.0 - pow(abs(diff*params.x), params.y);",
+
+            "float diffTime = diff  * powDiff;",
+            "vec2 diffUV = normalize(uv - center);",
+            "texCoord = uv + (diffUV * diffTime);",
+            "}",
+
+            "gl_FragColor = texture2D(uSampler, texCoord);",
+            "}"
+        ].join("\n");
+
+        let customFilter1 = new egret.CustomFilter(
+            vertexSrc,
+            fragmentSrc1,
+            {
+                center: { x: 0.5, y: 0.5 },
+                params: { x: 10, y: 0.8, z: 0.1 },
+                time: 0
+            }
+        );
+        this.startBtn.filters = [customFilter1, glowFilter]
+        let state = 0;
+        this.addEventListener(egret.Event.ENTER_FRAME, () => {
+            customFilter1.uniforms.time += 0.004;
+            if (customFilter1.uniforms.time > 1) {
+                customFilter1.uniforms.time = 0.0;
+            }
+        }, this);
         
+
+        // var color:number = 0x33CCFF;        /// 光晕的颜色，十六进制，不包含透明度
+        // var alpha:number = 0.3;             /// 光晕的颜色透明度，是对 color 参数的透明度设定。有效值为 0.0 到 1.0。例如，0.8 设置透明度值为 80%。
+        // var blurX:number = 70;              /// 水平模糊量。有效值为 0 到 255.0（浮点）
+        // var blurY:number = 70;              /// 垂直模糊量。有效值为 0 到 255.0（浮点）
+        // var strength:number = 2;            /// 压印的强度，值越大，压印的颜色越深，而且发光与背景之间的对比度也越强。有效值为 0 到 255。暂未实现
+        // var quality:number = egret.BitmapFilterQuality.HIGH;        /// 应用滤镜的次数，建议用 BitmapFilterQuality 类的常量来体现
+        // var inner:boolean = false;            /// 指定发光是否为内侧发光，暂未实现
+        // var knockout:boolean = false;            /// 指定对象是否具有挖空效果，暂未实现
+        // var glowFilter:egret.GlowFilter = new egret.GlowFilter( color, alpha, blurX, blurY,
+        //     strength, quality, inner, knockout );
+        // this.startBtn.filters = [glowFilter]
+
+        this.startBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startBegin, this)
+
 
 
         /**
@@ -424,8 +522,9 @@ class Home extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入排行')
-            this.removeSelf();
-            this._GameContainer.createRank();
+            // this.removeSelf();
+            // this._GameContainer.createRank();
+            Data.i().Toast('暂未开放')
         }
     }
 
@@ -445,8 +544,9 @@ class Home extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入设置')
-            this.removeSelf();
-            this._GameContainer.createSetting();
+            // this.removeSelf();
+            // this._GameContainer.createSetting();
+            Data.i().Toast('暂未开放')
         }
     }
 
@@ -465,8 +565,9 @@ class Home extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入难度等级')
-            this.removeSelf();
-            this._GameContainer.createGrade();
+            // this.removeSelf();
+            // this._GameContainer.createGrade();
+            Data.i().Toast('暂未开放')
         }
     }
 
@@ -486,8 +587,9 @@ class Home extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入建议')
-            this.removeSelf();
-            this._GameContainer.createSuggest();
+            // this.removeSelf();
+            // this._GameContainer.createSuggest();
+            platform.openCustomerServiceConversation()
         }
     }
 

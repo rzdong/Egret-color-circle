@@ -13,8 +13,8 @@ class About extends BaseUILayer {
 
 
 	protected init() {
-		let Width = 800;
-		let Height = 500;
+		let Width = this.stage.stageWidth - 300;
+		let Height = this.stage.stageHeight - 200;
 
 		this.backBitmap = Util.createBitmapByName('back_png');
 		this.backBitmap.touchEnabled = true;
@@ -29,7 +29,7 @@ class About extends BaseUILayer {
 
 
 		let vLayout = new eui.VerticalLayout();
-		vLayout.gap = 10;
+		vLayout.gap = 60;
 		vLayout.paddingTop = 15;
 		vLayout.paddingRight = 15;
 		vLayout.paddingBottom = 15;
@@ -53,22 +53,8 @@ class About extends BaseUILayer {
 		this.swiper.verticalScrollBar.visible = false;
 
 
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
-		group.addChild(new eui.Label('任振东'))
+		group.addChild(new eui.Label('1. 点击左右控制圆环转动，在球落下的时候，保证下方的颜色与球颜色一致'))
+
 		group.addChild(new eui.Label('任振东'))
 		group.addChild(new eui.Label('任振东'))
 		group.addChild(new eui.Label('任振东'))
@@ -80,6 +66,9 @@ class About extends BaseUILayer {
 
 		this.addChild(this.swiper)
 	
+
+		let label = new eui.Label('')
+
 		egret.Tween.get(this.swiper).to({verticalCenter: 0}, 400, egret.Ease.backOut).call(() => {
 			egret.Tween.removeTweens(this.swiper);
 		})

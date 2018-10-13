@@ -16,7 +16,9 @@ class Data extends egret.EventDispatcher{
         }
     }
 
-    
-
+    public toast: Toast = null;
+    public Toast(str: string, time?: number){
+        this.toast.Toast(str)
+    }
 
 }

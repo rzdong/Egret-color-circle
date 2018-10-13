@@ -1,21 +1,21 @@
 class Game extends BaseUILayer {
 
-    private leftBtn: egret.Sprite
+    private leftBtn: egret.Sprite // 左侧按钮
 
-    private rightBtn: egret.Sprite
+    private rightBtn: egret.Sprite // 右侧按钮
 
-    private circleGroup: BaseEUIGroup
+    private circleGroup: BaseEUIGroup // 圆环容器
 
-    private currentColorIndex: number
+    private currentColorIndex: number // 当前转到对应的坐标
 
-    private currentDeg: number = 0
+    private currentDeg: number = 0 // 当前转过的角度。
 
-    private colorList: Array<string>
+    private colorList: Array<string> // 颜色数组
 
 
-    private backBitmap: egret.Bitmap;
+    private backBitmap: egret.Bitmap; // 后退按钮
     // private circleStatus: Array<any> = []
-    private _GameContainer: GameContainer;
+    private _GameContainer: GameContainer; // 父类实例
 
     constructor(GC: GameContainer){
         super();
