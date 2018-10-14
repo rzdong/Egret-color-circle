@@ -45,16 +45,7 @@ class Game extends BaseUILayer {
         this.jumpSound = Data.i().Sound('jump_wav')
         this.currentColorIndex = 0;
         this.nextColorIndex = 0;
-        this.backBitmap = Util.createBitmapByName('back_png');
-		this.backBitmap.touchEnabled = true;
-		this.backBitmap.width = 200 * 0.6;
-		this.backBitmap.height = 130 * 0.5;
-		this.backBitmap.anchorOffsetX = this.backBitmap.width / 2;
-		this.backBitmap.anchorOffsetY = this.backBitmap.height / 2;
-		this.backBitmap.x = this.backBitmap.width / 2 + 10;
-		this.backBitmap.y = this.backBitmap.height / 2 + 16;
-		this.addChild(this.backBitmap);
-		this.backBitmap.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.backBegin, this);
+        
 
 
         let Width = this.stage.stageWidth;
@@ -144,6 +135,9 @@ class Game extends BaseUILayer {
         this.score = new eui.Label();
         this.score.size = 160;
         this.score.text = 0 + '';
+        this.score.bold = true;
+        this.score.stroke = 4;
+        this.score.strokeColor = 0x888888;
         this.score.textColor = 0x888888;
         this.score.horizontalCenter = 0;
         this.score.verticalCenter = 0;
@@ -307,6 +301,18 @@ class Game extends BaseUILayer {
             .to({scaleX: 1, scaleY: 1}, 80)
             
 
+        this.backBitmap = Util.createBitmapByName('back_png');
+        this.backBitmap.alpha = 0;
+		this.backBitmap.touchEnabled = true;
+		this.backBitmap.width = 200 * 0.6;
+		this.backBitmap.height = 130 * 0.5;
+		this.backBitmap.anchorOffsetX = this.backBitmap.width / 2;
+		this.backBitmap.anchorOffsetY = this.backBitmap.height / 2;
+		this.backBitmap.x = this.backBitmap.width / 2 + 10;
+		this.backBitmap.y = this.backBitmap.height / 2 + 16;
+		this.addChild(this.backBitmap);
+		this.backBitmap.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.backBegin, this);
+
         reBegin.addEventListener(egret.TouchEvent.TOUCH_TAP, this.reBegin, this);
 
 
@@ -351,6 +357,7 @@ class Game extends BaseUILayer {
             reBegin.alpha = scoreText.alpha;
             // this.homeBitmap.alpha = scoreText.alpha;
             this.shareText.alpha = scoreText.alpha;
+            this.backBitmap.alpha = scoreText.alpha;
             // console.log(scoreText.alpha);
         }}).to({alpha: 1}, 500)
 
@@ -443,9 +450,11 @@ class Game extends BaseUILayer {
     public beforeRemove(){
         this.leftBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.LeftBegin, this)
         this.rightBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.RightBegin, this)
-        this.removeChild(this.leftBtn);
-        this.removeChild(this.rightBtn);
-        this.removeChild(this.circleGroup);
+        egret.Tween.removeTweens(this.ball);
+        // this.removeChild(this.leftBtn);
+        // this.removeChild(this.rightBtn);
+        // this.removeChild(this.circleGroup);
+        this.removeChildren()
         this.parent.removeChild(this)
         console.log('remove')
     }
@@ -508,7 +517,8 @@ class Game extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('回到首页')
-            this.gameOverMusic.stop()
+            if(this.gameOverMusic) this.gameOverMusic.stop()
+            
             this.beforeRemove();
 			this._GameContainer.createHome()
         }
