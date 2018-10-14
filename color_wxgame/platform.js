@@ -67,6 +67,12 @@ class WxgamePlatform {
     }
   }
 
+  playAudio(url){
+    var audio = wx.createInnerAudioContext()
+    audio.src = url // src 可以设置 http(s) 的路径，本地文件路径或者代码包文件路径
+    audio.play()
+  }
+
 }
 
 class WxgameOpenDataContext {

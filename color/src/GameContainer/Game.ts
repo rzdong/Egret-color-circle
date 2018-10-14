@@ -203,7 +203,8 @@ class Game extends BaseUILayer {
                 }else {
                     this.score.text = Number(this.score.text) + 1 + '' // 分数增加
                     
-                    this.jumpSound.play() // 音效播放
+                    // this.jumpSound.play() // 音效播放
+                    platform.playAudio('resource/music/jump.wav')
 
                     platform.shake(1); // 震动效果
 
@@ -398,7 +399,7 @@ class Game extends BaseUILayer {
         if(ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE){
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
-            Data.i().Sound('tap1_mp3').play()
+            platform.playAudio('resource/music/tap1.mp3')
             platform.shareToFriend({
                 title: '我得了' + this.score.text + '分, 快来挑战我吧',
                 imageUrl: 'resource/game_res/share1.jpg'
@@ -407,7 +408,7 @@ class Game extends BaseUILayer {
 
     }
     private reBegin(){
-        Data.i().Sound('tap1_mp3').play()
+        platform.playAudio('resource/music/tap1.mp3')
         this.gameOverMusic.stop()
         this.removeChildren();
         this._GameContainer.createGame();
@@ -425,7 +426,7 @@ class Game extends BaseUILayer {
         this.leftBtn.removeEventListener(egret.TouchEvent.TOUCH_END, this.LeftEnd, this)
         if(ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE){
         }else if(ev.type == egret.TouchEvent.TOUCH_END) {
-            // Data.i().Sound('tap1_mp3').play()
+            // platform.playAudio('resource/music/tap1.mp3')
             this.leftRound();
         }
     }
@@ -442,7 +443,7 @@ class Game extends BaseUILayer {
         if(ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE){
         }else if(ev.type == egret.TouchEvent.TOUCH_END) {
             // console.log('点击有效')
-            // Data.i().Sound('tap1_mp3').play()
+            // platform.playAudio('resource/music/tap1.mp3')
             this.RightRound()
         }
     }
@@ -507,7 +508,7 @@ class Game extends BaseUILayer {
 	}
 
 	private backEnd(ev): void {
-        Data.i().Sound('tap1_mp3').play()
+        platform.playAudio('resource/music/tap1.mp3')
 		this.backBitmap.scaleX = 1;
 		this.backBitmap.scaleY = 1;
 		this.backBitmap.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.backEnd, this);
