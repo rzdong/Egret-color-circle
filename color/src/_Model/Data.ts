@@ -21,4 +21,9 @@ class Data extends egret.EventDispatcher{
         this.toast.Toast(str)
     }
 
+
+    public sound: SoundContainer;
+    public Sound(str: string): Sound{
+        return this.sound.getSound(str);
+    }
 }

@@ -33,6 +33,9 @@ var Data = (function (_super) {
     Data.prototype.Toast = function (str, time) {
         this.toast.Toast(str);
     };
+    Data.prototype.Sound = function (str) {
+        return this.sound.getSound(str);
+    };
     Data.data = null;
     return Data;
 }(egret.EventDispatcher));

@@ -394,6 +394,7 @@ var Home = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入关于');
+            Data.i().Sound('tap1_mp3').play();
             this.removeSelf();
             this._GameContainer.createAbout();
         }
@@ -413,6 +414,11 @@ var Home = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入分享');
+            Data.i().Sound('tap1_mp3').play();
+            platform.shareToFriend({
+                title: '快来和我一起玩球球',
+                imageUrl: 'resource/game_res/share1.jpg'
+            });
         }
     };
     Home.prototype.rankBegin = function () {
@@ -429,6 +435,7 @@ var Home = (function (_super) {
         if (ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
+            Data.i().Sound('tap1_mp3').play();
             console.log('进入排行');
             // this.removeSelf();
             // this._GameContainer.createRank();
@@ -449,6 +456,7 @@ var Home = (function (_super) {
         if (ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
+            Data.i().Sound('tap1_mp3').play();
             console.log('进入设置');
             // this.removeSelf();
             // this._GameContainer.createSetting();
@@ -470,6 +478,7 @@ var Home = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入难度等级');
+            Data.i().Sound('tap1_mp3').play();
             // this.removeSelf();
             // this._GameContainer.createGrade();
             Data.i().Toast('暂未开放');
@@ -490,6 +499,7 @@ var Home = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入建议');
+            Data.i().Sound('tap1_mp3').play();
             // this.removeSelf();
             // this._GameContainer.createSuggest();
             platform.openCustomerServiceConversation();
@@ -510,6 +520,7 @@ var Home = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入游戏');
+            Data.i().Sound('tap1_mp3').play();
             this.removeSelf();
             this._GameContainer.createGame();
         }

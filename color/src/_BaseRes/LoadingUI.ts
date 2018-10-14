@@ -96,7 +96,7 @@ class LoadingUI extends egret.Sprite implements RES.PromiseTaskReporter {
         this.shapeProgress.anchorOffsetX = this.shapeProgress.width;
         this.shapeProgress.x = (this.stage.stageWidth - this.shapeProgress.width) / 2;
         this.shapeProgress.y = this.stage.stageHeight - this.shapeProgress.height - 40;
-        this.shapeProgress.graphics.beginFill(0x354afd);
+        this.shapeProgress.graphics.beginFill(0x33CCFF);
         this.shapeProgress.graphics.moveTo(r, 0);
         this.shapeProgress.graphics.lineTo(w-r, 0);
         this.shapeProgress.graphics.drawArc(w-r, r, r, -Math.PI/2, Math.PI/2);
@@ -107,20 +107,6 @@ class LoadingUI extends egret.Sprite implements RES.PromiseTaskReporter {
         this.shapeProgress.mask = shapeMask;
         this.addChild(this.shapeProgress)
 
-        // let texture = RES.getRes("progress_png");
-        // let config = RES.getRes("progress_json");
-        // RES.getResByUrl('resource/effect_res/progress.png', (data) => {
-        //     console.log(data)
-        // }, this)
-        // RES.getResByUrl('resource/effect_res/progress.json', (data) => {
-
-        // }, this)
-        // this.particle = new particle.GravityParticleSystem(texture, config)
-        // this.particle.x = (this.stage.stageWidth - this.shapeProgress.width) / 2 - 5;
-        // this.particle.y = this.stage.stageHeight - 48;
-        // this.addChild(this.particle)
-        // this.particle.start()
-
         this.textField = new egret.TextField();
         this.addChild(this.textField);
         this.textField.y = this.stage.stageHeight - 100;
@@ -128,6 +114,9 @@ class LoadingUI extends egret.Sprite implements RES.PromiseTaskReporter {
         this.textField.height = 50;
         this.textField.textAlign = "center";
         this.textField.text = "资源加载中..."
+
+
+
     }
 
     public onProgress(current: number, total: number): void {

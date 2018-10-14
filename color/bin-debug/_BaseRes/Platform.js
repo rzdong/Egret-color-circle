@@ -62,6 +62,10 @@ var DebugPlatform = (function () {
     };
     DebugPlatform.prototype.showShareMenu = function (obj) {
     };
+    DebugPlatform.prototype.shareToFriend = function (obj) {
+    };
+    DebugPlatform.prototype.shake = function (type) {
+    };
     return DebugPlatform;
 }());
 __reflect(DebugPlatform.prototype, "DebugPlatform", ["Platform"]);

@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,progress_json,progress_png,circle6-sheet0_png,loadingbg_jpg,setting_png,share_png,table_png,about_png,friend_png,home1_png,menu_png,play_png,bgParticle_json,bgParticle_png,circle-yellow_png,circle-red_png,circle-blue_png,circle-dyellow_png,circle-violte_png,circle-green_png,start-btn_png,back_png",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,progress_json,progress_png,circle6-sheet0_png,loadingbg_jpg,setting_png,share_png,table_png,about_png,friend_png,home1_png,menu_png,play_png,bgParticle_json,bgParticle_png,circle-yellow_png,circle-red_png,circle-blue_png,circle-dyellow_png,circle-violte_png,circle-green_png,start-btn_png,back_png,share1_jpg,gameover_wav,jump_wav,tap1_mp3",
 			"name": "preload"
 		}
 	],
@@ -227,9 +227,29 @@
 			"name": "start-btn_png"
 		},
 		{
-			"name": "back_png",
+			"url": "game_res/back.png",
 			"type": "image",
-			"url": "game_res/back.png"
+			"name": "back_png"
+		},
+		{
+			"url": "game_res/share1.jpg",
+			"type": "image",
+			"name": "share1_jpg"
+		},
+		{
+			"url": "music/gameover.wav",
+			"type": "sound",
+			"name": "gameover_wav"
+		},
+		{
+			"url": "music/jump.wav",
+			"type": "sound",
+			"name": "jump_wav"
+		},
+		{
+			"url": "music/tap1.mp3",
+			"type": "sound",
+			"name": "tap1_mp3"
 		}
 	]
 }

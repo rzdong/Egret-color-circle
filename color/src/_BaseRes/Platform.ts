@@ -13,6 +13,10 @@ declare interface Platform {
     openCustomerServiceConversation(): Promise<any>
 
     showShareMenu(obj: any)
+
+    shareToFriend(obj: any)
+
+    shake(type: number)
 }
 
 class DebugPlatform implements Platform {
@@ -28,6 +32,13 @@ class DebugPlatform implements Platform {
     }
 
     showShareMenu(obj: any) {
+
+    }
+    shareToFriend(obj: any) {
+
+    }
+
+    shake(type: number){
 
     }
 }

@@ -103,15 +103,24 @@ class Main extends eui.UILayer {
         Data.i().toast = new Toast()
 
         this.addChild(new GameScene());
-
         this.addChild(Data.i().toast);
-        // let sky = new NetBitmap('https://static01.coloros.com/bbs/data/attachment/forum/201312/27/174621xzs8lj9gzi28npu2.jpg')
 
-        // this.addChild(sky);
-        // let stageW = this.stage.stageWidth;
-        // let stageH = this.stage.stageHeight;
-        // sky.width = stageW;
-        // sky.height = stageH;
+
+        let arr = [
+            'jump_wav',
+            // 'tap1_mp3',
+            // 'tap1_mp3',
+            'tap1_mp3',
+            'gameover_wav'
+        ]
+        Data.i().sound = new SoundContainer(arr)
+
+        platform.showShareMenu({})
+        
+
+
+
+
 
     }
 }

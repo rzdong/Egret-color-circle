@@ -35,11 +35,38 @@ class WxgamePlatform {
     }
 
   openCustomerServiceConversation(){
-
     wx.openCustomerServiceConversation();
   }
+  /**
+   * @param obj any
+   * {
+   *    title: string,
+   *    imageUrl: string
+   * }
+   */
+  showShareMenu(obj) {
+    wx.showShareMenu();
+    wx.onShareAppMessage(() => {
+      return {
+        title: '恕我直言，在座的各位，都没我6',
+        imageUrl: 'resource/game_res/share1.jpg'
+      }
+    })
+  }
+  openDataContext = new WxgameOpenDataContext();
 
-    openDataContext = new WxgameOpenDataContext();
+  shareToFriend(obj) {
+    wx.shareAppMessage(obj)
+  }
+
+  shake(types){
+    if(types == 1){
+      wx.vibrateShort()
+    }else if(types == 2){
+      wx.vibrateLong()
+    }
+  }
+
 }
 
 class WxgameOpenDataContext {
