@@ -117,7 +117,7 @@ class Main extends eui.UILayer {
 
         platform.showShareMenu({})
         
-
+        platform.createFeedbackButton()
 
 
 

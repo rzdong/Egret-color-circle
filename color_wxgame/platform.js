@@ -72,6 +72,37 @@ class WxgamePlatform {
     audio.src = url // src 可以设置 http(s) 的路径，本地文件路径或者代码包文件路径
     audio.play()
   }
+  feedBackBtn = null
+  createFeedbackButton() {
+    // this.feedBackBtn = wx.createFeedbackButton({
+    //   type: 'text',
+    //   text: '打开意见反馈页面',
+    //   style: {
+    //     left: 10,
+    //     top: 76,
+    //     width: 200,
+    //     height: 40,
+    //     lineHeight: 40,
+    //     backgroundColor: '#ff0000',
+    //     color: '#ffffff',
+    //     textAlign: 'center',
+    //     fontSize: 16,
+    //     borderRadius: 4
+    //   }
+    // })
+    // wx.createGameClubButton({
+    //   icon: 'green',
+    //   style: {
+    //     left: 10,
+    //     top: 76,
+    //     width: 40,
+    //     height: 40
+    //   }
+    // })
+    // wx.checkIsUserAdvisedToRest({ todayPlayedTime: 72000,success: (res) => {
+    //   console.log(res)
+    // }})
+  }
 
 }
 

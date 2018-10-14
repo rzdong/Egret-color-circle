@@ -19,6 +19,8 @@ declare interface Platform {
     shake(type: number)
 
     playAudio(url: string)
+    
+    createFeedbackButton()
 }
 
 class DebugPlatform implements Platform {
@@ -45,6 +47,9 @@ class DebugPlatform implements Platform {
     }
 
     playAudio(url: string){
+
+    }
+    createFeedbackButton(){
 
     }
 }
