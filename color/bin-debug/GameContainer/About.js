@@ -72,7 +72,7 @@ var About = (function (_super) {
         if (ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
-            Data.i().Sound('tap1_mp3').play();
+            platform.playAudio('resource/music/tap1.mp3');
             this.beforeRemove();
             this._GameContainer.createHome();
         }

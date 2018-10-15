@@ -68,13 +68,15 @@ class Main extends eui.UILayer {
 
     private async loadResource() {
         try {
-            
+            RES.setMaxLoadingThread(1);
             await RES.loadConfig("resource/default.res.json", "resource/");
             await this.loadTheme();
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
             await RES.loadGroup("preload", 1, loadingView);
             this.stage.removeChild(loadingView);
+            platform.openDataContext.postMessage({command:'loadRes'});
+            RES.setMaxLoadingThread(4);
         }
         catch (e) {
             console.error(e);

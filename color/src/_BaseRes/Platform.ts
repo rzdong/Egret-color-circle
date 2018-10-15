@@ -21,9 +21,13 @@ declare interface Platform {
     playAudio(url: string)
     
     createFeedbackButton()
+
+    openDataContext: any
 }
 
 class DebugPlatform implements Platform {
+    openDataContext
+
     async getUserInfo() {
         return { nickName: "username" }
     }

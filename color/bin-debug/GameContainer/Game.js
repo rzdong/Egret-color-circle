@@ -156,7 +156,8 @@ var Game = (function (_super) {
             }
             else {
                 _this.score.text = Number(_this.score.text) + 1 + ''; // 分数增加
-                _this.jumpSound.play(); // 音效播放
+                // this.jumpSound.play() // 音效播放
+                platform.playAudio('resource/music/jump.wav');
                 platform.shake(1); // 震动效果
                 _this.nextColorIndex = Math.floor(Math.random() * _this.colorTexture.length); // 随机下次颜色记录索引
                 _this.ball.texture = _this.colorTexture[_this.nextColorIndex]; // 改变贴图
@@ -317,7 +318,7 @@ var Game = (function (_super) {
         if (ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
-            Data.i().Sound('tap1_mp3').play();
+            platform.playAudio('resource/music/tap1.mp3');
             platform.shareToFriend({
                 title: '我得了' + this.score.text + '分, 快来挑战我吧',
                 imageUrl: 'resource/game_res/share1.jpg'
@@ -325,7 +326,7 @@ var Game = (function (_super) {
         }
     };
     Game.prototype.reBegin = function () {
-        Data.i().Sound('tap1_mp3').play();
+        platform.playAudio('resource/music/tap1.mp3');
         this.gameOverMusic.stop();
         this.removeChildren();
         this._GameContainer.createGame();
@@ -342,7 +343,7 @@ var Game = (function (_super) {
         if (ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
-            // Data.i().Sound('tap1_mp3').play()
+            // platform.playAudio('resource/music/tap1.mp3')
             this.leftRound();
         }
     };
@@ -359,7 +360,7 @@ var Game = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             // console.log('点击有效')
-            // Data.i().Sound('tap1_mp3').play()
+            // platform.playAudio('resource/music/tap1.mp3')
             this.RightRound();
         }
     };
@@ -413,7 +414,7 @@ var Game = (function (_super) {
         this.backBitmap.addEventListener(egret.TouchEvent.TOUCH_END, this.backEnd, this);
     };
     Game.prototype.backEnd = function (ev) {
-        Data.i().Sound('tap1_mp3').play();
+        platform.playAudio('resource/music/tap1.mp3');
         this.backBitmap.scaleX = 1;
         this.backBitmap.scaleY = 1;
         this.backBitmap.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.backEnd, this);

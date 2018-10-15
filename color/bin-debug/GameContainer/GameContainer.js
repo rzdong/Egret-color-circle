@@ -40,13 +40,6 @@ var GameContainer = (function (_super) {
         this.home = new Home(this);
         this.addChild(this.home);
     };
-    GameContainer.prototype.createRank = function () {
-        if (this.contains(this.rank)) {
-            this.removeChild(this.rank);
-        }
-        this.rank = new Rank(this);
-        this.addChild(this.rank);
-    };
     GameContainer.prototype.createSetting = function () {
         if (this.contains(this.setting)) {
             this.removeChild(this.setting);

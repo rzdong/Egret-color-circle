@@ -48,14 +48,6 @@ class GameContainer extends BaseUILayer {
         this.addChild(this.home)
     }
 
-    public createRank(): void {
-        if(this.contains(this.rank)){
-            this.removeChild(this.rank)
-        }
-        this.rank = new Rank(this);
-        this.addChild(this.rank)
-    }
-
     public createSetting(): void {
         if(this.contains(this.setting)){
             this.removeChild(this.setting)

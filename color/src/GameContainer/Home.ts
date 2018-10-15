@@ -527,13 +527,11 @@ class Home extends BaseUILayer {
         if(ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE){
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
-            // platform.playAudio('resource/music/tap1.mp3')
             platform.playAudio('resource/music/tap1.mp3')
 
-            console.log('进入排行')
-            // this.removeSelf();
-            // this._GameContainer.createRank();
-            Data.i().Toast('暂未开放')
+            this.addChild(new Rank())
+
+            // Data.i().Toast('暂未开放')
         }
     }
 

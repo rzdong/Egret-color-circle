@@ -116,6 +116,7 @@ var Main = (function (_super) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 4, , 5]);
+                        RES.setMaxLoadingThread(1);
                         return [4 /*yield*/, RES.loadConfig("resource/default.res.json", "resource/")];
                     case 1:
                         _a.sent();
@@ -128,6 +129,8 @@ var Main = (function (_super) {
                     case 3:
                         _a.sent();
                         this.stage.removeChild(loadingView);
+                        platform.openDataContext.postMessage({ command: 'loadRes' });
+                        RES.setMaxLoadingThread(4);
                         return [3 /*break*/, 5];
                     case 4:
                         e_1 = _a.sent();
@@ -166,6 +169,7 @@ var Main = (function (_super) {
         ];
         Data.i().sound = new SoundContainer(arr);
         platform.showShareMenu({});
+        platform.createFeedbackButton();
     };
     return Main;
 }(eui.UILayer));

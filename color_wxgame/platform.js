@@ -115,7 +115,7 @@ class WxgameOpenDataContext {
         texture._setBitmapData(bitmapdata);
         const bitmap = new egret.Bitmap(texture);
         bitmap.width = width;
-        bitmap.height = height;
+        bitmap.height = 600;
 
         if (egret.Capabilities.renderMode == "webgl") {
             const renderContext = egret.wxgame.WebGLRenderContext.getInstance();
@@ -137,6 +137,8 @@ class WxgameOpenDataContext {
 
     postMessage(data) {
         const openDataContext = wx.getOpenDataContext();
+        openDataContext.canvas.width = 350;
+        openDataContext.canvas.height = 600;
         openDataContext.postMessage(data);
     }
 }

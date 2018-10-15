@@ -1,6 +1,4 @@
-/**
- * 微信开放数据域
- * 使用 Canvas2DAPI 在 SharedCanvas 渲染一个排行榜，
+/** 使用 Canvas2DAPI 在 SharedCanvas 渲染一个排行榜，
  * 并在主域中渲染此 SharedCanvas
  */
 
@@ -146,67 +144,59 @@ const totalGroup = [{
   },
 ];
 
+function getUserDataList() {
+  wx.setUserCloudStorage({
+    KVDataList: [{ key: 'score', value: '10' }],
+    success: (res) => {
+      console.log(res)
+      wx.getFriendCloudStorage({
+        KVDataList: ['score', 'value'],
+        success: (res) => {
+          console.log(res)
+        }
+      })
+    }
+  })
+
+}
+
+
 /**
  * 创建排行榜
  */
 function drawRankPanel() {
   //绘制背景
   context_drawImage(assets.panel, offsetX_rankToBorder, offsetY_rankToBorder, rankWidth, rankHeight);
-  //绘制标题
-  const title = assets.title;
-  //根据title的宽高计算一下位置;
-  const titleX = offsetX_rankToBorder + (rankWidth - title.width) / 2;
-  const titleY = offsetY_rankToBorder + title.height + 40;
-  context_drawImage(title, titleX, titleY);
   //获取当前要渲染的数据组
 
-  //起始id
-  const startID = perPageMaxNum * page;
-  currentGroup = totalGroup.slice(startID, startID + perPageMaxNum);
   //创建头像Bar
-  drawRankByGroup(currentGroup);
-  //创建按钮
-  drawButton()
+  drawRankByGroup(totalGroup);
 }
 /**
  * 根据屏幕大小初始化所有绘制数据
  */
 function init() {
   //排行榜绘制数据初始化,可以在此处进行修改
-  rankWidth = stageWidth * 4 / 5;
-  rankHeight = stageHeight * 4 / 5;
-  barWidth = rankWidth * 4 / 5;
-  barHeight = rankWidth / perPageMaxNum;
-  offsetX_rankToBorder = (stageWidth - rankWidth) / 2;
-  offsetY_rankToBorder = (stageHeight - rankHeight) / 2;
-  preOffsetY = (rankHeight - barHeight) / (perPageMaxNum + 1);
-  fontSize = Math.floor(stageWidth / 25);
-  startX = offsetX_rankToBorder + (rankWidth - barWidth) / 2;
-  startY = offsetY_rankToBorder + preOffsetY;
+  rankWidth = stageWidth
+  rankHeight = stageHeight
+  barWidth = rankWidth
+  barHeight = 100;
+  offsetX_rankToBorder = 0;
+  offsetY_rankToBorder = 0;
+  preOffsetY = barHeight + 8;
+  fontSize = 28;
+  startX = 0
+  startY = 0
   avatarSize = barHeight - 10;
   intervalX = barWidth / 20;
   textOffsetY = (barHeight + fontSize) / 2;
   textMaxSize = barWidth / 3;
   indexWidth = context.measureText("99").width;
 
-  //按钮绘制数据初始化
-  buttonWidth = barWidth / 3;
-  buttonHeight = barHeight / 2;
-  buttonOffset = rankWidth / 3;
-  lastButtonX = offsetX_rankToBorder + buttonOffset - buttonWidth;
-  nextButtonX = offsetX_rankToBorder + 2 * buttonOffset;
-  nextButtonY = lastButtonY = offsetY_rankToBorder + rankHeight - 50 - buttonHeight;
+
   let data = wx.getSystemInfoSync();
   canvasWidth = data.windowWidth;
   canvasHeight = data.windowHeight;
-}
-
-/**
- * 创建两个点击按钮
- */
-function drawButton() {
-  context_drawImage(assets.button, nextButtonX, nextButtonY, buttonWidth, buttonHeight);
-  context_drawImage(assets.button, lastButtonX, lastButtonY, buttonWidth, buttonHeight);
 }
 
 
@@ -214,6 +204,7 @@ function drawButton() {
  * 根据当前绘制组绘制排行榜
  */
 function drawRankByGroup(currentGroup) {
+  console.log(sharedCanvas)
   for (let i = 0; i < currentGroup.length; i++) {
     const data = currentGroup[i];
     drawByData(data, i);
@@ -243,63 +234,7 @@ function drawByData(data, i) {
   context.fillText(data.scroes + "", x, startY + i * preOffsetY + textOffsetY, textMaxSize);
 }
 
-/**
- * 点击处理
- */
-function onTouchEnd(event) {
-  let x = event.clientX * sharedCanvas.width / canvasWidth;
-  let y = event.clientY * sharedCanvas.height / canvasHeight;
-  if (x > lastButtonX && x < lastButtonX + buttonWidth &&
-    y > lastButtonY && y < lastButtonY + buttonHeight) {
-    //在last按钮的范围内
-    if (page > 0) {
-      buttonClick(0);
 
-    }
-  }
-  if (x > nextButtonX && x < nextButtonX + buttonWidth &&
-    y > nextButtonY && y < nextButtonY + buttonHeight) {
-    //在next按钮的范围内
-    if ((page + 1) * perPageMaxNum < totalGroup.length) {
-      buttonClick(1);
-    }
-  }
-
-}
-/**
- * 根据传入的buttonKey 执行点击处理
- * 0 为上一页按钮
- * 1 为下一页按钮
- */
-function buttonClick(buttonKey) {
-  let old_buttonY;
-  if (buttonKey == 0) {
-    //上一页按钮
-    old_buttonY = lastButtonY;
-    lastButtonY += 10;
-    page--;
-    renderDirty = true;
-    console.log('上一页' + page);
-    setTimeout(() => {
-      lastButtonY = old_buttonY;
-      //重新渲染必须标脏
-      renderDirty = true;
-    }, 100);
-  } else if (buttonKey == 1) {
-    //下一页按钮
-    old_buttonY = nextButtonY;
-    nextButtonY += 10;
-    page++;
-    renderDirty = true;
-    console.log('下一页' + page);
-    setTimeout(() => {
-      nextButtonY = old_buttonY;
-      //重新渲染必须标脏
-      renderDirty = true;
-    }, 100);
-  }
-
-}
 
 /////////////////////////////////////////////////////////////////// 相关缓存数据
 
@@ -318,7 +253,7 @@ let currentGroup = [];
 /**
  * 每页最多显示个数
  */
-let perPageMaxNum = 5;
+let perPageMaxNum = 12;
 /**
  * 当前页数,默认0为第一页
  */
@@ -416,17 +351,6 @@ let offsetY_rankToBorder;
  */
 let indexWidth;
 
-//////////////////////////////////////////////////////////
-/**
- * 监听点击
- */
-wx.onTouchEnd((event) => {
-  const l = event.changedTouches.length;
-  for (let i = 0; i < l; i++) {
-    onTouchEnd(event.changedTouches[i]);
-  }
-});
-
 
 /**
  * 是否加载过资源的标记量
@@ -445,7 +369,7 @@ function preloadAssets() {
     img.onload = () => {
       preloaded++;
       if (preloaded == count) {
-        // console.log("加载完成");
+        console.log("排行榜图片资源加载完成");
         hasLoadRes = true;
       }
 
@@ -462,9 +386,9 @@ function preloadAssets() {
  */
 function createScene() {
   if (sharedCanvas.width && sharedCanvas.height) {
-    // console.log('初始化完成')
-    stageWidth = sharedCanvas.width;
-    stageHeight = sharedCanvas.height;
+    console.log('初始化完成', sharedCanvas.width, sharedCanvas.height)
+    stageWidth = sharedCanvas.height;
+    stageHeight = sharedCanvas.width;
     init();
     return true;
   } else {
@@ -487,9 +411,12 @@ function addOpenDataContextListener() {
     console.log(data);
     if (data.command == 'open') {
       if (!hasCreateScene) {
+        
         //创建并初始化
-        hasCreateScene = createScene();
+        
       }
+      getUserDataList()
+      hasCreateScene = createScene();
       requestAnimationFrameID = requestAnimationFrame(loop);
     } else if (data.command == 'close' && requestAnimationFrameID) {
       cancelAnimationFrame(requestAnimationFrameID);
