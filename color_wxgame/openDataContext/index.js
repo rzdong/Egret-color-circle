@@ -1,4 +1,6 @@
-/** 使用 Canvas2DAPI 在 SharedCanvas 渲染一个排行榜，
+/**
+ * 微信开放数据域
+ * 使用 Canvas2DAPI 在 SharedCanvas 渲染一个排行榜，
  * 并在主域中渲染此 SharedCanvas
  */
 
@@ -16,8 +18,7 @@ const assetsUrl = {
   icon: "openDataContext/assets/icon.png",
   box: "openDataContext/assets/box.png",
   panel: "openDataContext/assets/panel.png",
-  button: "openDataContext/assets/button.png",
-  title: "openDataContext/assets/rankingtitle.png"
+  button: "openDataContext/assets/button.png"
 };
 
 /**
@@ -41,162 +42,184 @@ const context = sharedCanvas.getContext("2d");
 context.globalCompositeOperation = "source-over";
 
 
+let totalGroup = [
+  // {
+  //   key: 1,
+  //   name: '晚安',
+    
+  //   url: 'https://wx.qlogo.cn/mmopen/vi_32/OLicevpERHN1jHjthVWEEsmERDlSTFZzT5rF2C3oxwzFsT5PCFRDYeKBIDLcMydF3R1yKCu2k5CtX9Mxl4IGVCw/132',
+  //   scores: 1000,
+  // }
+]
+
+
 /**
  * 所有头像数据
  * 包括姓名，头像图片，得分
  * 排位序号i会根据parge*perPageNum+i+1进行计算
  */
-const totalGroup = [{
-    key: 1,
-    name: "1111111111",
-    url: assets.icon,
-    scroes: 10000
-  },
-  {
-    key: 2,
-    name: "2222222222",
-    url: assets.icon,
-    scroes: 9000
-  },
-  {
-    key: 3,
-    name: "3333333",
-    url: assets.icon,
-    scroes: 8000
-  },
-  {
-    key: 4,
-    name: "4444444",
-    url: assets.icon,
-    scroes: 7000
-  },
-  {
-    key: 5,
-    name: "55555555",
-    url: assets.icon,
-    scroes: 6000
-  },
-  {
-    key: 6,
-    name: "6666666",
-    url: assets.icon,
-    scroes: 5000
-  },
-  {
-    key: 7,
-    name: "7777777",
-    url: assets.icon,
-    scroes: 4000
-  },
-  {
-    key: 8,
-    name: "8888888",
-    url: assets.icon,
-    scroes: 3000
-  },
-  {
-    key: 9,
-    name: "9999999",
-    url: assets.icon,
-    scroes: 2000
-  },
-  {
-    key: 10,
-    name: "1010101010",
-    url: assets.icon,
-    scroes: 2000
-  },
-  {
-    key: 11,
-    name: "111111111111",
-    url: assets.icon,
-    scroes: 2000
-  },
-  {
-    key: 12,
-    name: "121212121212",
-    url: assets.icon,
-    scroes: 2000
-  },
-  {
-    key: 13,
-    name: "13131313",
-    url: assets.icon,
-    scroes: 2000
-  },
-  {
-    key: 14,
-    name: "1414141414",
-    url: assets.icon,
-    scroes: 2000
-  },
-  {
-    key: 15,
-    name: "1515151515",
-    url: assets.icon,
-    scroes: 2000
-  },
-  {
-    key: 16,
-    name: "1616161616",
-    url: assets.icon,
-    scroes: 2000
-  },
+const totalGroup1 = [{
+  key: 1,
+  name: "1111111111",
+  url: assets.icon,
+  scroes: 10000
+},
+{
+  key: 2,
+  name: "2222222222",
+  url: assets.icon,
+  scroes: 9000
+},
+{
+  key: 3,
+  name: "3333333",
+  url: assets.icon,
+  scroes: 8000
+},
+{
+  key: 4,
+  name: "4444444",
+  url: assets.icon,
+  scroes: 7000
+},
+{
+  key: 5,
+  name: "55555555",
+  url: assets.icon,
+  scroes: 6000
+},
+{
+  key: 6,
+  name: "6666666",
+  url: assets.icon,
+  scroes: 5000
+},
+{
+  key: 7,
+  name: "7777777",
+  url: assets.icon,
+  scroes: 4000
+},
+{
+  key: 8,
+  name: "8888888",
+  url: assets.icon,
+  scroes: 3000
+},
+{
+  key: 9,
+  name: "9999999",
+  url: assets.icon,
+  scroes: 2000
+},
+{
+  key: 10,
+  name: "1010101010",
+  url: assets.icon,
+  scroes: 2000
+},
+{
+  key: 11,
+  name: "111111111111",
+  url: assets.icon,
+  scroes: 2000
+},
+{
+  key: 12,
+  name: "121212121212",
+  url: assets.icon,
+  scroes: 2000
+},
+{
+  key: 13,
+  name: "13131313",
+  url: assets.icon,
+  scroes: 2000
+},
+{
+  key: 14,
+  name: "1414141414",
+  url: assets.icon,
+  scroes: 2000
+},
+{
+  key: 15,
+  name: "1515151515",
+  url: assets.icon,
+  scroes: 2000
+},
+{
+  key: 16,
+  name: "1616161616",
+  url: assets.icon,
+  scroes: 2000
+},
 ];
-
-function getUserDataList() {
-  wx.setUserCloudStorage({
-    KVDataList: [{ key: 'score', value: '10' }],
-    success: (res) => {
-      console.log(res)
-      wx.getFriendCloudStorage({
-        KVDataList: ['score', 'value'],
-        success: (res) => {
-          console.log(res)
-        }
-      })
-    }
-  })
-
-}
-
 
 /**
  * 创建排行榜
  */
 function drawRankPanel() {
   //绘制背景
-  context_drawImage(assets.panel, offsetX_rankToBorder, offsetY_rankToBorder, rankWidth, rankHeight);
+  // context_drawImage(assets.panel, offsetX_rankToBorder, offsetY_rankToBorder, rankWidth, stageHeight);
+  // //绘制标题
+  // const title = assets.title;
+  // //根据title的宽高计算一下位置;
+  // const titleX = offsetX_rankToBorder + (rankWidth - title.width) / 2;
+  // const titleY = offsetY_rankToBorder + title.height + 40;
+  // context_drawImage(title, titleX, titleY);
   //获取当前要渲染的数据组
 
+  //起始id
+  const startID = perPageMaxNum * page;
+  currentGroup = totalGroup.slice(startID, startID + perPageMaxNum);
   //创建头像Bar
-  drawRankByGroup(totalGroup);
+  drawRankByGroup(currentGroup);
+  //创建按钮
+  drawButton()
 }
 /**
  * 根据屏幕大小初始化所有绘制数据
  */
+let data = wx.getSystemInfoSync();
+let rate = data.windowHeight / 750;
 function init() {
   //排行榜绘制数据初始化,可以在此处进行修改
-  rankWidth = stageWidth
-  rankHeight = stageHeight
-  barWidth = rankWidth
-  barHeight = 100;
-  offsetX_rankToBorder = 0;
-  offsetY_rankToBorder = 0;
-  preOffsetY = barHeight + 8;
-  fontSize = 28;
-  startX = 0
-  startY = 0
+  rankWidth = stageWidth;
+  rankHeight = stageHeight;
+  barWidth = rankWidth - 12;
+  barHeight = (rankHeight - 36) / 7;
+  offsetX_rankToBorder = (stageWidth - rankWidth) / 2;
+  offsetY_rankToBorder = (stageHeight - rankHeight) / 2;
+  preOffsetY = barHeight + 6;
+  fontSize = Math.floor(stageWidth / 20);
+  startX = 6;
+  startY = 6;
   avatarSize = barHeight - 10;
   intervalX = barWidth / 20;
   textOffsetY = (barHeight + fontSize) / 2;
   textMaxSize = barWidth / 3;
   indexWidth = context.measureText("99").width;
 
+  //按钮绘制数据初始化
+  buttonWidth = barWidth / 3;
+  buttonHeight = barHeight / 2;
+  buttonOffset = rankWidth / 3;
+  lastButtonX = offsetX_rankToBorder + buttonOffset - buttonWidth;
+  nextButtonX = offsetX_rankToBorder + 2 * buttonOffset;
+  nextButtonY = lastButtonY = rankHeight - barHeight + buttonHeight / 2;
+  
 
-  let data = wx.getSystemInfoSync();
-  canvasWidth = data.windowWidth;
-  canvasHeight = data.windowHeight;
+  canvasWidth = 365 * rate;
+  canvasHeight = 650 * rate;
+}
+
+/**
+ * 创建两个点击按钮
+ */
+function drawButton() {
+  context_drawImage(assets.button, nextButtonX, nextButtonY, buttonWidth, buttonHeight);
+  context_drawImage(assets.button, lastButtonX, lastButtonY, buttonWidth, buttonHeight);
 }
 
 
@@ -204,7 +227,6 @@ function init() {
  * 根据当前绘制组绘制排行榜
  */
 function drawRankByGroup(currentGroup) {
-  console.log(sharedCanvas)
   for (let i = 0; i < currentGroup.length; i++) {
     const data = currentGroup[i];
     drawByData(data, i);
@@ -217,10 +239,11 @@ function drawRankByGroup(currentGroup) {
 function drawByData(data, i) {
   let x = startX;
   //绘制底框
-  context_drawImage(assets.box, startX, startY + i * preOffsetY, barWidth, barHeight);
+  // context_drawImage(assets.box, startX, startY + i * preOffsetY, barWidth, barHeight);
   x += 10;
   //设置字体
-  context.font = fontSize + "px Arial";
+  context.font = (fontSize + 5) + "px Arial";
+  context.fillStyle = '#ffffff'
   //绘制序号
   context.fillText(data.key + "", x, startY + i * preOffsetY + textOffsetY, textMaxSize);
   x += indexWidth + intervalX;
@@ -231,10 +254,67 @@ function drawByData(data, i) {
   context.fillText(data.name + "", x, startY + i * preOffsetY + textOffsetY, textMaxSize);
   x += textMaxSize + intervalX;
   //绘制分数
-  context.fillText(data.scroes + "", x, startY + i * preOffsetY + textOffsetY, textMaxSize);
+  console.log(data, data.scores)
+  context.fillText(data.scores + "", x, startY + i * preOffsetY + textOffsetY, textMaxSize);
 }
 
+/**
+ * 点击处理
+ */
+function onTouchEnd(event) {
+  let x = event.clientX * sharedCanvas.width / canvasWidth;
+  let y = event.clientY * sharedCanvas.height / canvasHeight;
+  if (x > lastButtonX && x < lastButtonX + buttonWidth &&
+    y > lastButtonY + 100 * rate && y < lastButtonY + 100 * rate + buttonHeight) {
+    //在last按钮的范围内
+    if (page > 0) {
+      buttonClick(0);
 
+    }
+  }
+  if (x > nextButtonX && x < nextButtonX + buttonWidth &&
+    y > nextButtonY + 100* rate && y < nextButtonY + 100*rate + buttonHeight) {
+    //在next按钮的范围内
+    if ((page + 1) * perPageMaxNum < totalGroup.length) {
+      buttonClick(1);
+    }
+  }
+
+}
+/**
+ * 根据传入的buttonKey 执行点击处理
+ * 0 为上一页按钮
+ * 1 为下一页按钮
+ */
+function buttonClick(buttonKey) {
+  let old_buttonY;
+  if (buttonKey == 0) {
+    //上一页按钮
+    // old_buttonY = lastButtonY;
+    // lastButtonY += 10;
+    page--;
+    renderDirty = true;
+    console.log('上一页' + page);
+    setTimeout(() => {
+      // lastButtonY = old_buttonY;
+      //重新渲染必须标脏
+      renderDirty = true;
+    }, 100);
+  } else if (buttonKey == 1) {
+    //下一页按钮
+    // old_buttonY = nextButtonY;
+    // nextButtonY += 10;
+    page++;
+    renderDirty = true;
+    console.log('下一页' + page);
+    setTimeout(() => {
+      // nextButtonY = old_buttonY;
+      //重新渲染必须标脏
+      renderDirty = true;
+    }, 100);
+  }
+
+}
 
 /////////////////////////////////////////////////////////////////// 相关缓存数据
 
@@ -253,7 +333,7 @@ let currentGroup = [];
 /**
  * 每页最多显示个数
  */
-let perPageMaxNum = 12;
+let perPageMaxNum = 6;
 /**
  * 当前页数,默认0为第一页
  */
@@ -351,6 +431,17 @@ let offsetY_rankToBorder;
  */
 let indexWidth;
 
+//////////////////////////////////////////////////////////
+/**
+ * 监听点击
+ */
+wx.onTouchEnd((event) => {
+  const l = event.changedTouches.length;
+  for (let i = 0; i < l; i++) {
+    onTouchEnd(event.changedTouches[i]);
+  }
+});
+
 
 /**
  * 是否加载过资源的标记量
@@ -369,7 +460,7 @@ function preloadAssets() {
     img.onload = () => {
       preloaded++;
       if (preloaded == count) {
-        console.log("排行榜图片资源加载完成");
+        console.log("加载完成");
         hasLoadRes = true;
       }
 
@@ -386,9 +477,9 @@ function preloadAssets() {
  */
 function createScene() {
   if (sharedCanvas.width && sharedCanvas.height) {
-    console.log('初始化完成', sharedCanvas.width, sharedCanvas.height)
-    stageWidth = sharedCanvas.height;
-    stageHeight = sharedCanvas.width;
+    // console.log('初始化完成')
+    stageWidth = sharedCanvas.width;
+    stageHeight = sharedCanvas.height;
     init();
     return true;
   } else {
@@ -411,12 +502,37 @@ function addOpenDataContextListener() {
     console.log(data);
     if (data.command == 'open') {
       if (!hasCreateScene) {
-        
         //创建并初始化
+        if(totalGroup.length == 0){
+          wx.getFriendCloudStorage({
+            keyList: ['score', 'maxScore'],
+            success: (res) => {
+
+              let tempGroup = res.data.sort((val1, val2) => {
+                val2.KVDataList['1'].value - val1.KVDataList['1'].value
+              })
+
+              for (let i = 0; i < tempGroup.length; i++) {
+                console.log(tempGroup[i])
+                let obj = {}
+                obj.key = i + 1;
+                obj.name = tempGroup[i].nickname
+                obj.url = tempGroup[i].avatarUrl
+                obj.scores = tempGroup[i].KVDataList['1'].value
+                totalGroup.push(obj)
+              }
+
+              hasCreateScene = createScene();
+            },
+            fail: (err) => {
+
+            }
+
+          })
+        }
+        
         
       }
-      getUserDataList()
-      hasCreateScene = createScene();
       requestAnimationFrameID = requestAnimationFrame(loop);
     } else if (data.command == 'close' && requestAnimationFrameID) {
       cancelAnimationFrame(requestAnimationFrameID);
@@ -428,6 +544,33 @@ function addOpenDataContextListener() {
        */
       // console.log('加载资源')
       preloadAssets();
+    } else if(data.command == 'loadRankData'){
+      console.log('初始化排行榜数据')
+      wx.getFriendCloudStorage({
+        keyList: ['score', 'maxScore'],
+        success: (res) => {
+
+          let tempGroup = res.data.sort((val1, val2) => {
+            val2.KVDataList['1'].value - val1.KVDataList['1'].value
+          })
+
+          for (let i = 0; i < tempGroup.length; i++) {
+            // console.log(tempGroup[i])
+            let obj = {}
+            obj.key = i + 1;
+            obj.name = tempGroup[i].nickname
+            obj.url = tempGroup[i].avatarUrl
+            obj.scores = tempGroup[i].KVDataList['1'].value
+            totalGroup.push(obj)
+          }
+
+          hasCreateScene = createScene();
+        },
+        fail: (err) => {
+
+        }
+
+      })
     }
   });
 }

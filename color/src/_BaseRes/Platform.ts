@@ -26,7 +26,10 @@ declare interface Platform {
 }
 
 class DebugPlatform implements Platform {
-    openDataContext
+    openDataContext = {
+        createDisplayObject: () => {},
+        postMessage: () => {}
+    }
 
     async getUserInfo() {
         return { nickName: "username" }

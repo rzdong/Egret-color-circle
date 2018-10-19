@@ -38,6 +38,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var DebugPlatform = (function () {
     function DebugPlatform() {
+        this.openDataContext = {
+            createDisplayObject: function () { },
+            postMessage: function () { }
+        };
     }
     DebugPlatform.prototype.getUserInfo = function () {
         return __awaiter(this, void 0, void 0, function () {

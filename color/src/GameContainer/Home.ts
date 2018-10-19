@@ -33,7 +33,9 @@ class Home extends BaseUILayer {
 
     protected init() :void {
         console.log('Home已加载')
-
+        platform.openDataContext.postMessage({
+            command: 'loadRankData'
+        })
         let Width = this.stage.stageWidth;
         let Height = this.stage.stageHeight;
 
@@ -527,7 +529,7 @@ class Home extends BaseUILayer {
         if(ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE){
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
-            platform.playAudio('resource/music/tap1.mp3')
+            platform.playAudio('resource/music/tap1.mp3');
 
             this.addChild(new Rank())
 

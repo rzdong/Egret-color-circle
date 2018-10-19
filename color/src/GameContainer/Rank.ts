@@ -8,9 +8,9 @@ class Rank extends BaseUILayer {
 		super()
 	}
 
-
+	private rankBitmap: egret.Bitmap;
 	protected init() {
-		let Width = 350;
+		let Width = 400;
 		let Height = 750;
 
         let vLayout = new eui.VerticalLayout();
@@ -21,7 +21,7 @@ class Rank extends BaseUILayer {
 		vLayout.paddingLeft = 5;
 
 		this.shapebg = new BaseShape(this.stage.stageWidth, this.stage.stageHeight)
-		this.shapebg.alpha = 0.3
+		this.shapebg.alpha = 0
 		this.shapebg.touchEnabled = true;
 		this.shapebg.graphics.beginFill(0x000000, 1)
 		this.shapebg.graphics.drawRect(0, 0, this.stage.stageWidth, this.stage.stageHeight);
@@ -34,77 +34,42 @@ class Rank extends BaseUILayer {
 		this.shapeWhite.height = Height;
 		this.shapeWhite.x = -Width;
 		this.shapeWhite.touchEnabled = true;
-		this.shapeWhite.graphics.beginFill(0x000000, 0.7)
+		this.shapeWhite.graphics.beginFill(0x000000, 1)
 		this.shapeWhite.graphics.drawRect(0, 0, Width, Height);
 		this.shapeWhite.graphics.endFill();
 		this.addChild(this.shapeWhite)
 
 
-		let group = new eui.Group();
-		group.width = Width;
-		group.height = Height - 150;
-		group.layout = vLayout;
-		this.shapeWhite.addChild(group);
-
-
-		this.swiper = new eui.Scroller();
-		this.swiper.width = Width;
-		this.swiper.x = 0
-		this.swiper.y = 150;
-		this.swiper.height = Height - 150;
-        this.swiper.scrollPolicyH = 'OFF'
-		this.swiper.viewport = group;
-		this.shapeWhite.addChild(this.swiper);
-		this.swiper.verticalScrollBar.autoVisibility = false;
-		this.swiper.verticalScrollBar.visible = false;
-
 		
+
+
 
 		let header = new eui.Label('排行榜')
 		header.width = Width;
-		header.height = 150;
-		header.size = 50;
+		header.height = 100;
+		header.size = 40;
 		header.textAlign = egret.HorizontalAlign.CENTER;
 		header.verticalAlign = egret.VerticalAlign.MIDDLE;
 		this.shapeWhite.addChild(header);
 
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
-		// group.addChild(new eui.Label('排行榜排行榜排行榜排行榜'))
+		let group = new eui.Group();
+		group.width = Width;
+		group.height = Height - header.height;
+		group.y = header.height
+		group.layout = vLayout;
+		this.shapeWhite.addChild(group);
 
-		let bit = platform.openDataContext.createDisplayObject(null,350, null) as egret.Bitmap
-        group.addChild(new eui.Group().addChild(bit))
+
+		this.rankBitmap = platform.openDataContext.createDisplayObject(null,400, 650) as egret.Bitmap
+		// this.rankBitmap.height = 500
+		console.log(this.rankBitmap)
+        group.addChild(new eui.Group().addChild(this.rankBitmap))
         platform.openDataContext.postMessage({
             command: 'open'
         })
 
 		egret.Tween.get(this.shapeWhite).to({x: 0}, 300).call(() => {
-			egret.Tween.removeTweens(this.swiper)
+			egret.Tween.removeTweens(this.shapeWhite)
 		})
 		egret.Tween.get(this.shapebg).to({alpha: 0.3}, 300).call(() => {
 			egret.Tween.removeTweens(this.shapebg);
@@ -112,9 +77,9 @@ class Rank extends BaseUILayer {
 	}
 
 	private closeRank(): void {
+		this.touchEnabled = false
 		platform.playAudio('resource/music/tap1.mp3')
-		egret.Tween.get(this.shapeWhite).to({x: -350}, 300, egret.Ease.backOut).call(() => {
-			egret.Tween.removeTweens(this.swiper);
+		egret.Tween.get(this.shapeWhite).to({x: -350}, 300).call(() => {
 			platform.openDataContext.postMessage({
                 command: 'close'
             })

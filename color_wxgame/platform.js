@@ -74,6 +74,17 @@ class WxgamePlatform {
   }
   feedBackBtn = null
   createFeedbackButton() {
+    wx.setUserCloudStorage({
+      KVDataList: [{ key: 'score', value: '100' }, { key: 'maxScore', value: '1000'}],
+      success: (res) => {
+      },
+      fail: (err) => {
+      },
+      complete: () => {
+
+      }
+    })
+
     // this.feedBackBtn = wx.createFeedbackButton({
     //   type: 'text',
     //   text: '打开意见反馈页面',
@@ -115,7 +126,7 @@ class WxgameOpenDataContext {
         texture._setBitmapData(bitmapdata);
         const bitmap = new egret.Bitmap(texture);
         bitmap.width = width;
-        bitmap.height = 600;
+        bitmap.height = height;
 
         if (egret.Capabilities.renderMode == "webgl") {
             const renderContext = egret.wxgame.WebGLRenderContext.getInstance();
@@ -137,8 +148,11 @@ class WxgameOpenDataContext {
 
     postMessage(data) {
         const openDataContext = wx.getOpenDataContext();
-        openDataContext.canvas.width = 350;
-        openDataContext.canvas.height = 600;
+        let sysinof = wx.getSystemInfoSync()
+        let rate = sysinof.windowHeight / 750;
+
+        openDataContext.canvas.width = 365 * rate;
+        openDataContext.canvas.height = 650 * rate;
         openDataContext.postMessage(data);
     }
 }
