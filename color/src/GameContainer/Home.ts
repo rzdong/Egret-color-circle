@@ -490,8 +490,12 @@ class Home extends BaseUILayer {
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入关于')
             platform.playAudio('resource/music/tap1.mp3')
-            this.removeSelf();
-            this._GameContainer.createAbout()
+            egret.setTimeout(() => {
+                this.removeSelf();
+                this._GameContainer.createAbout()
+            }, this, 80)
+            
+            
         }
     }
 
@@ -511,10 +515,13 @@ class Home extends BaseUILayer {
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入分享')
             platform.playAudio('resource/music/tap1.mp3')
-            platform.shareToFriend({
-                title: '快来和我一起玩球球',
-                imageUrl: 'resource/game_res/share1.jpg'
-            })
+            egret.setTimeout(() => {
+                platform.shareToFriend({
+                    title: '快来和我一起玩球球',
+                    imageUrl: 'resource/game_res/share1.jpg'
+                })
+            }, this, 80)
+            
         }
     }
 
@@ -536,8 +543,10 @@ class Home extends BaseUILayer {
             platform.playAudio('resource/music/tap1.mp3');
             // if(!this.rank) this.rank = new Rank();
             // this.addChild(this.rank)
-
-            this.addChild(new Rank())
+            egret.setTimeout(() => {
+                this.addChild(new Rank())
+            }, this, 80)
+            
             // Data.i().Toast('暂未开放')
         }
     }
@@ -561,7 +570,10 @@ class Home extends BaseUILayer {
             console.log('进入设置')
             // this.removeSelf();
             // this._GameContainer.createSetting();
-            Data.i().Toast('暂未开放')
+            egret.setTimeout(() => {
+                Data.i().Toast('暂未开放')
+            }, this, 80)
+            
         }
     }
 
@@ -583,7 +595,10 @@ class Home extends BaseUILayer {
             platform.playAudio('resource/music/tap1.mp3')
             // this.removeSelf();
             // this._GameContainer.createGrade();
-            Data.i().Toast('暂未开放')
+            egret.setTimeout(() => {
+                Data.i().Toast('暂未开放')
+            }, this, 80)
+            
         }
     }
 
@@ -629,8 +644,11 @@ class Home extends BaseUILayer {
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('进入游戏')
             platform.playAudio('resource/music/tap1.mp3')
-            this.removeSelf();
-            this._GameContainer.createGame();
+            egret.setTimeout(() => {
+                this.removeSelf();
+                this._GameContainer.createGame();
+            }, this, 80)
+            
         }
     }
 

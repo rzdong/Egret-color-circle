@@ -32,7 +32,7 @@ class Game extends BaseUILayer {
 
     protected init() {
         console.log('Game已加载')
-
+        platform.hideFeedBack()
         this.colorList = ['violet', 'dyellow', 'blue', 'red' ,'yellow', 'green']
         this.colorTexture = [
                 RES.getRes('circle-violte_png'),
@@ -46,7 +46,7 @@ class Game extends BaseUILayer {
         this.currentColorIndex = 0;
         this.nextColorIndex = 0;
         
-
+        
 
         let Width = this.stage.stageWidth;
         let Height = this.stage.stageHeight;
@@ -528,9 +528,12 @@ class Game extends BaseUILayer {
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             console.log('回到首页')
             if(this.gameOverMusic) this.gameOverMusic.stop()
+            platform.playAudio('resource/music/tap1.mp3')
+            egret.setTimeout(() => {
+                this.beforeRemove();
+			    this._GameContainer.createHome()
+            }, this, 80)
             
-            this.beforeRemove();
-			this._GameContainer.createHome()
         }
 	}
 

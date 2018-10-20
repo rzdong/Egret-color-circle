@@ -24,6 +24,9 @@ declare interface Platform {
 
     openDataContext: any
     userInfo: any
+    feedBackBtn: any
+    hideFeedBack()
+    showFeedBack()
 }
 
 class DebugPlatform implements Platform {
@@ -32,6 +35,7 @@ class DebugPlatform implements Platform {
         postMessage: () => {}
     }
     userInfo = null
+    feedBackBtn = null
     async getUserInfo(cb) {
         return { nickName: "username" }
     }
@@ -60,6 +64,13 @@ class DebugPlatform implements Platform {
     createFeedbackButton(){
 
     }
+    hideFeedBack(){
+
+    }
+    showFeedBack(){
+        
+    }
+    
 }
 
 

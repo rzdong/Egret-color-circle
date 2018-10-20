@@ -112,6 +112,11 @@ class WxgamePlatform {
     // wx.removeUserCloudStorage({
     //   keyList: ['score']
     // })
+    if(this.feedBackBtn){
+      this.showFeedBack();
+      return;
+    }
+
     let sysinfo = wx.getSystemInfoSync()
     let rate = sysinfo.windowHeight / 750
     this.feedBackBtn = wx.createFeedbackButton({
@@ -130,6 +135,11 @@ class WxgamePlatform {
         // borderRadius: 4
       }
     })
+    this.feedBackBtn.onTap(() => {
+      // this.playAudio("resource/music /tap1.mp3")
+      // this.feedBackBtn.destroy()
+      console.log('点击了建议按钮')
+    })
     // wx.createGameClubButton({
     //   icon: 'green',
     //   style: {
@@ -144,6 +154,12 @@ class WxgamePlatform {
     // }})
   }
 
+  hideFeedBack() {
+    if(this.feedBackBtn) this.feedBackBtn.hide();console.log('hide')
+  }
+  showFeedBack() {
+    if(this.feedBackBtn) this.feedBackBtn.show();console.log('show')
+  }
 
   setUserCloudStorage() {
     wx.setUserCloudStorage({

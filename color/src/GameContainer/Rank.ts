@@ -10,6 +10,7 @@ class Rank extends BaseUILayer {
 
 	private rankBitmap: egret.Bitmap;
 	protected init() {
+		platform.hideFeedBack()
 		let Width = 400;
 		let Height = 750;
 
@@ -86,6 +87,7 @@ class Rank extends BaseUILayer {
 			platform.openDataContext.postMessage({
 				command: 'close'
 			})
+			platform.showFeedBack()
 			this.removeChildren()
 			this.shapeWhite.removeChildren()
 			this.parent.removeChild(this)

@@ -13,6 +13,7 @@ class About extends BaseUILayer {
 
 
 	protected init() {
+		platform.hideFeedBack()
 		let Width = this.stage.stageWidth - 300;
 		let Height = this.stage.stageHeight - 200;
 
@@ -88,14 +89,16 @@ class About extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
 			platform.playAudio('resource/music/tap1.mp3')
-            this.beforeRemove();
-			this._GameContainer.createHome()
+			egret.setTimeout(() => {
+                this.beforeRemove();
+				this._GameContainer.createHome()
+            }, this, 80)
+            
         }
 	}
 
 	private beforeRemove(): void {
 		this.backBitmap.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.backEnd, this)
-		
 		this.parent.removeChild(this)
 	}
 }
