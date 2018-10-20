@@ -6,7 +6,7 @@
  */
 declare interface Platform {
 
-    getUserInfo(): Promise<any>;
+    getUserInfo(cb): any;
 
     login(): Promise<any>
 
@@ -23,6 +23,7 @@ declare interface Platform {
     createFeedbackButton()
 
     openDataContext: any
+    userInfo: any
 }
 
 class DebugPlatform implements Platform {
@@ -30,8 +31,8 @@ class DebugPlatform implements Platform {
         createDisplayObject: () => {},
         postMessage: () => {}
     }
-
-    async getUserInfo() {
+    userInfo = null
+    async getUserInfo(cb) {
         return { nickName: "username" }
     }
     async login() {

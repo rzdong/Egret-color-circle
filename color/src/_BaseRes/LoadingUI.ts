@@ -39,6 +39,7 @@ class LoadingUI extends egret.Sprite implements RES.PromiseTaskReporter {
     private particle: particle.GravityParticleSystem;
     private w: number = 680;
     private r: number = 8;
+    private textHint: egret.TextField;
     private createView(): void {
         let stageW = this.stage.stageWidth;
         let stageH = this.stage.stageHeight;
@@ -115,7 +116,18 @@ class LoadingUI extends egret.Sprite implements RES.PromiseTaskReporter {
         this.textField.textAlign = "center";
         this.textField.text = "资源加载中..."
 
+        let str = "抵制不良游戏，拒绝盗版游戏。注意自我保护，谨防受骗上当\n适度游戏益脑，沉迷游戏伤身。合理安排时间，享受健康生活";
 
+        this.textHint = new egret.TextField();
+        // this.textHint.width = this.width;
+        this.textHint.lineSpacing = 15;
+        // this.textHint.textAlign = egret.HorizontalAlign.CENTER;
+        this.textHint.text = str;
+        this.textHint.size = 30;
+        this.textHint.textColor = 0x8c8c91;
+        this.textHint.x = (this.stage.stageWidth - this.textHint.width) / 2
+        this.textHint.y = 50;
+        this.addChild(this.textHint);
 
     }
 

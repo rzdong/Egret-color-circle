@@ -42,8 +42,9 @@ var DebugPlatform = (function () {
             createDisplayObject: function () { },
             postMessage: function () { }
         };
+        this.userInfo = null;
     }
-    DebugPlatform.prototype.getUserInfo = function () {
+    DebugPlatform.prototype.getUserInfo = function (cb) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, { nickName: "username" }];

@@ -228,7 +228,7 @@ class Game extends BaseUILayer {
     private shareBitmap: egret.Bitmap;
     private shareText: eui.Label;
     private createGameOver(){
-        platform.shake(2); // 震动效果
+        platform.shake(2); // 长震动效果
         this.leftBtn.touchEnabled = false;
         this.rightBtn.touchEnabled = false;
         if(!this.stage) return;
@@ -245,9 +245,7 @@ class Game extends BaseUILayer {
         egret.Tween.get(this.rightBtn).to({x: Width}, 500, egret.Ease.backIn).call(() => {
             egret.Tween.removeTweens(this.rightBtn)
         })
-        // egret.Tween.get(this.circleGroup).to({y: -Height / 2}, 500, egret.Ease.backIn).call(() => {
-        //     egret.Tween.removeTweens(this.circleGroup);
-        // })
+
         this.removeChild(this.circleGroup)
 
         egret.Tween.get(this.score).to({verticalCenter: -500}, 500, egret.Ease.backIn).call(() => {
@@ -280,6 +278,15 @@ class Game extends BaseUILayer {
         score.horizontalCenter = 0
         score.textColor = 0x33CCFF;
         this.addChild(score)
+
+        console.error('platform.userInfo', platform.userInfo)
+
+        platform.openDataContext.postMessage({
+            command: 'updateScore',
+            score: this.score.text,
+            userInfo: platform.userInfo
+        })
+
 
         let reBegin = new eui.Label('重新开始');
         reBegin.alpha = 0;
@@ -463,6 +470,7 @@ class Game extends BaseUILayer {
 
 
     private leftRound() : void {
+        platform.shake(1); // 震动效果
         egret.Tween.removeTweens(this.circleGroup);
         if(this.circleGroup.rotation == -180) this.circleGroup.rotation = 180
         this.currentColorIndex = (++this.currentColorIndex) % 6
@@ -480,6 +488,7 @@ class Game extends BaseUILayer {
     }
 
     private RightRound() : void {
+        platform.shake(1); // 震动效果
         egret.Tween.removeTweens(this.circleGroup);
         if(this.circleGroup.rotation == 180) this.circleGroup.rotation = -180
 

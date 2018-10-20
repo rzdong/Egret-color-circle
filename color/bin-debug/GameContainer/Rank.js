@@ -36,15 +36,10 @@ var Rank = (function (_super) {
         this.shapeWhite.height = Height;
         this.shapeWhite.x = -Width;
         this.shapeWhite.touchEnabled = true;
-        this.shapeWhite.graphics.beginFill(0x000000, 0.7);
+        this.shapeWhite.graphics.beginFill(0x000000, 1);
         this.shapeWhite.graphics.drawRect(0, 0, Width, Height);
         this.shapeWhite.graphics.endFill();
         this.addChild(this.shapeWhite);
-        var group = new eui.Group();
-        group.width = Width;
-        group.height = Height - 100;
-        group.layout = vLayout;
-        this.shapeWhite.addChild(group);
         var header = new eui.Label('排行榜');
         header.width = Width;
         header.height = 100;
@@ -52,9 +47,15 @@ var Rank = (function (_super) {
         header.textAlign = egret.HorizontalAlign.CENTER;
         header.verticalAlign = egret.VerticalAlign.MIDDLE;
         this.shapeWhite.addChild(header);
-        // this.rankBitmap = platform.openDataContext.createDisplayObject(null,350, null) as egret.Bitmap
-        // this.rankBitmap.height = 500
-        // group.addChild(new eui.Group().addChild(this.rankBitmap))
+        var group = new eui.Group();
+        group.width = Width;
+        group.height = Height - header.height;
+        group.y = header.height;
+        group.layout = vLayout;
+        this.shapeWhite.addChild(group);
+        this.rankBitmap = platform.openDataContext.createDisplayObject(null, 400, 650);
+        // console.log(this.rankBitmap)
+        group.addChild(new eui.Group().addChild(this.rankBitmap));
         platform.openDataContext.postMessage({
             command: 'open'
         });
@@ -67,15 +68,21 @@ var Rank = (function (_super) {
     };
     Rank.prototype.closeRank = function () {
         var _this = this;
+        this.touchEnabled = false;
         platform.playAudio('resource/music/tap1.mp3');
-        egret.Tween.get(this.shapeWhite).to({ x: -350 }, 300, egret.Ease.backOut).call(function () {
+        // platform.openDataContext.postMessage({
+        // 	command: 'close'
+        // })
+        // return
+        egret.Tween.get(this.shapeWhite).to({ x: -350 }, 300).call(function () {
             platform.openDataContext.postMessage({
                 command: 'close'
             });
             _this.removeChildren();
+            _this.shapeWhite.removeChildren();
             _this.parent.removeChild(_this);
         });
-        egret.Tween.get(this.shapebg).to({ alpha: 0 }, 280).call(function () {
+        egret.Tween.get(this.shapebg).to({ alpha: 0 }, 300).call(function () {
             egret.Tween.removeTweens(_this.shapebg);
         });
     };

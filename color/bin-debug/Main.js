@@ -130,7 +130,6 @@ var Main = (function (_super) {
                         _a.sent();
                         this.stage.removeChild(loadingView);
                         platform.openDataContext.postMessage({ command: 'loadRes' });
-                        RES.setMaxLoadingThread(4);
                         return [3 /*break*/, 5];
                     case 4:
                         e_1 = _a.sent();

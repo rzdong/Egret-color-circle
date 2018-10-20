@@ -3,9 +3,9 @@
  */
 
 class WxgamePlatform {
-
+    openDataContext = new WxgameOpenDataContext();
     name = 'wxgame'
-
+    userInfo = null
     login() {
         return new Promise((resolve, reject) => {
             wx.login({
@@ -16,22 +16,46 @@ class WxgamePlatform {
         })
     }
 
-    getUserInfo() {
-        return new Promise((resolve, reject) => {
-            wx.getUserInfo({
-                withCredentials: true,
-                success: function (res) {
-                    var userInfo = res.userInfo
-                    var nickName = userInfo.nickName
-                    var avatarUrl = userInfo.avatarUrl
-                    var gender = userInfo.gender //性别 0：未知、1：男、2：女
-                    var province = userInfo.province
-                    var city = userInfo.city
-                    var country = userInfo.country
-                    resolve(userInfo);
+    getUserInfo(cb) {
+      wx.getSetting({
+        success: (res) => {
+          if (res.authSetting['scope.userInfo']){
+              wx.getUserInfo({
+                lang: 'en',
+                success: (ress) => {
+                  this.userInfo = ress.userInfo
+                },
+                fail: (err) => {
+                  console.log(err)
                 }
+              })
+          }else {
+            let sysinfo = wx.getSystemInfoSync()
+            let rate = sysinfo.windowHeight / 750
+            let button = wx.createUserInfoButton({
+              lang: 'en',
+              type: 'text',
+              text: ' ',
+              style: {
+                left: (sysinfo.windowWidth - 380 * rate) / 2  ,
+                top: (sysinfo.windowHeight - 124 * rate),
+                width: 380 * rate,
+                height: 124 * rate,
+                // backgroundColor: '#ff0000',
+                color: '#ffffff',
+                textAlign: 'center',
+                lineHeight: 124 * rate,
+              }
             })
-        })
+            button.onTap((res) => {
+              console.log('点击按钮获取的用户信息', res)
+              this.userInfo = res.userInfo
+              if(cb) cb()
+              button.destroy()
+            })
+          }
+        }
+      })
     }
 
   openCustomerServiceConversation(){
@@ -53,7 +77,7 @@ class WxgamePlatform {
       }
     })
   }
-  openDataContext = new WxgameOpenDataContext();
+  
 
   shareToFriend(obj) {
     wx.shareAppMessage(obj)
@@ -74,33 +98,38 @@ class WxgamePlatform {
   }
   feedBackBtn = null
   createFeedbackButton() {
-    wx.setUserCloudStorage({
-      KVDataList: [{ key: 'score', value: '100' }, { key: 'maxScore', value: '1000'}],
-      success: (res) => {
-      },
-      fail: (err) => {
-      },
-      complete: () => {
+    // wx.setUserCloudStorage({
+    //   KVDataList: [{ key: 'maxScore', value: '0' }],
+    //   success: (res) => {
+    //     // updateRank()
+    //   },
+    //   fail: (err) => {
+    //   },
+    //   complete: () => {
 
-      }
-    })
-
-    // this.feedBackBtn = wx.createFeedbackButton({
-    //   type: 'text',
-    //   text: '打开意见反馈页面',
-    //   style: {
-    //     left: 10,
-    //     top: 76,
-    //     width: 200,
-    //     height: 40,
-    //     lineHeight: 40,
-    //     backgroundColor: '#ff0000',
-    //     color: '#ffffff',
-    //     textAlign: 'center',
-    //     fontSize: 16,
-    //     borderRadius: 4
     //   }
     // })
+    // wx.removeUserCloudStorage({
+    //   keyList: ['score']
+    // })
+    let sysinfo = wx.getSystemInfoSync()
+    let rate = sysinfo.windowHeight / 750
+    this.feedBackBtn = wx.createFeedbackButton({
+      type: 'text',
+      text: ' ',
+      style: {
+        left: sysinfo.windowWidth - 190 * rate,
+        top: sysinfo.windowHeight - 124 * rate,
+        width: 190 * rate,
+        height: 124 * rate,
+        lineHeight: 124 * rate,
+        // backgroundColor: '#ff0000',
+        color: '#ffffff',
+        textAlign: 'center',
+        fontSize: 16,
+        // borderRadius: 4
+      }
+    })
     // wx.createGameClubButton({
     //   icon: 'green',
     //   style: {
@@ -115,10 +144,24 @@ class WxgamePlatform {
     // }})
   }
 
+
+  setUserCloudStorage() {
+    wx.setUserCloudStorage({
+      KVDataList: [{ key: 'maxScore', value: '0' }],
+      success: (res) => {
+      },
+      fail: (err) => {
+      },
+      complete: () => {
+
+      }
+    })
+  }
+
 }
 
 class WxgameOpenDataContext {
-
+    
     createDisplayObject(type, width, height) {
         const bitmapdata = new egret.BitmapData(sharedCanvas);
         bitmapdata.$deleteSource = false;

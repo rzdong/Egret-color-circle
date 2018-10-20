@@ -33,8 +33,11 @@ class Home extends BaseUILayer {
 
     protected init() :void {
         console.log('Home已加载')
-        platform.openDataContext.postMessage({
-            command: 'loadRankData'
+        // platform.openDataContext.postMessage({
+        //     command: 'loadRankData'
+        // })
+        platform.getUserInfo(() => {
+            Data.i().Toast('已授权')
         })
         let Width = this.stage.stageWidth;
         let Height = this.stage.stageHeight;
@@ -437,8 +440,8 @@ class Home extends BaseUILayer {
         suggestText.x = 20 ;
         suggestText.y = (this.suggestBtn.height - suggestText.size) / 2;
         this.suggestBtn.addChild(suggestText)
-        this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.suggestBegin, this)
-
+        // this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.suggestBegin, this)
+        platform.createFeedbackButton()
 
         egret.Tween.get(this.startBtn).to({y: Height - this.startBtn.height / 2}, 400, egret.Ease.backOut).call(() => {
             egret.Tween.removeTweens(this.startBtn)
@@ -521,6 +524,7 @@ class Home extends BaseUILayer {
         this.rankBtn.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.rankEnd, this)
         this.rankBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.rankEnd, this)
     }
+    private rank
     private rankEnd(ev): void {
         this.rankBtn.scaleX = 1;
         this.rankBtn.scaleY = 1;
@@ -530,9 +534,10 @@ class Home extends BaseUILayer {
 
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             platform.playAudio('resource/music/tap1.mp3');
+            // if(!this.rank) this.rank = new Rank();
+            // this.addChild(this.rank)
 
             this.addChild(new Rank())
-
             // Data.i().Toast('暂未开放')
         }
     }
@@ -584,25 +589,26 @@ class Home extends BaseUILayer {
 
 
     private suggestBegin(): void {
-        this.suggestBtn.scaleX = 0.9;
-        this.suggestBtn.scaleY = 0.9;
-        this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.suggestEnd, this)
-        this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.suggestEnd, this)
+        // this.suggestBtn.scaleX = 0.9;
+        // this.suggestBtn.scaleY = 0.9;
+        // this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.suggestEnd, this)
+        // this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.suggestEnd, this)
     }
     private suggestEnd(ev): void {
-        this.suggestBtn.scaleX = 1;
-        this.suggestBtn.scaleY = 1;
-        this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.suggestEnd, this)
-        this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_END, this.suggestEnd, this)
-        if(ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE){
+        // this.suggestBtn.scaleX = 1;
+        // this.suggestBtn.scaleY = 1;
+        // this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.suggestEnd, this)
+        // this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_END, this.suggestEnd, this)
+        // if(ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE){
 
-        }else if(ev.type == egret.TouchEvent.TOUCH_END){
-            console.log('进入建议')
-            platform.playAudio('resource/music/tap1.mp3')
+        // }else if(ev.type == egret.TouchEvent.TOUCH_END){
+        //     console.log('进入建议')
+        //     platform.playAudio('resource/music/tap1.mp3')
             // this.removeSelf();
             // this._GameContainer.createSuggest();
-            platform.openCustomerServiceConversation()
-        }
+            // platform.openCustomerServiceConversation()
+            
+        // }
     }
 
 
@@ -638,7 +644,7 @@ class Home extends BaseUILayer {
         this.rankBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.rankBegin, this)
         this.settingBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.settingBegin, this)
         this.gradeBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.gradeBegin, this)
-        this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.suggestBegin, this)
+        // this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.suggestBegin, this)
         this.parent.removeChild(this)
     }
 

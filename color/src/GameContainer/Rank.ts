@@ -1,8 +1,8 @@
 class Rank extends BaseUILayer {
 
 	private swiper: eui.Scroller;
-	private shapebg
-	private shapeWhite
+	private shapebg: BaseShape;
+	private shapeWhite: BaseSprite;
 
 	public constructor() {
 		super()
@@ -60,9 +60,8 @@ class Rank extends BaseUILayer {
 		this.shapeWhite.addChild(group);
 
 
-		this.rankBitmap = platform.openDataContext.createDisplayObject(null,400, 650) as egret.Bitmap
-		// this.rankBitmap.height = 500
-		console.log(this.rankBitmap)
+		this.rankBitmap = platform.openDataContext.createDisplayObject(null,400, 650)
+		// console.log(this.rankBitmap)
         group.addChild(new eui.Group().addChild(this.rankBitmap))
         platform.openDataContext.postMessage({
             command: 'open'
@@ -79,14 +78,20 @@ class Rank extends BaseUILayer {
 	private closeRank(): void {
 		this.touchEnabled = false
 		platform.playAudio('resource/music/tap1.mp3')
+		// platform.openDataContext.postMessage({
+		// 	command: 'close'
+		// })
+		// return
 		egret.Tween.get(this.shapeWhite).to({x: -350}, 300).call(() => {
 			platform.openDataContext.postMessage({
-                command: 'close'
-            })
+				command: 'close'
+			})
 			this.removeChildren()
+			this.shapeWhite.removeChildren()
 			this.parent.removeChild(this)
+			
 		})
-		egret.Tween.get(this.shapebg).to({alpha: 0}, 280).call(() => {
+		egret.Tween.get(this.shapebg).to({alpha: 0}, 300).call(() => {
 			egret.Tween.removeTweens(this.shapebg);
 		})
 	}

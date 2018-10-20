@@ -29,6 +29,12 @@ var Home = (function (_super) {
     Home.prototype.init = function () {
         var _this = this;
         console.log('Home已加载');
+        // platform.openDataContext.postMessage({
+        //     command: 'loadRankData'
+        // })
+        platform.getUserInfo(function () {
+            Data.i().Toast('已授权');
+        });
         var Width = this.stage.stageWidth;
         var Height = this.stage.stageHeight;
         this.circleImg = Util.createBitmapByName('circle6-sheet0_png');
@@ -436,6 +442,8 @@ var Home = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             platform.playAudio('resource/music/tap1.mp3');
+            // if(!this.rank) this.rank = new Rank();
+            // this.addChild(this.rank)
             this.addChild(new Rank());
             // Data.i().Toast('暂未开放')
         }

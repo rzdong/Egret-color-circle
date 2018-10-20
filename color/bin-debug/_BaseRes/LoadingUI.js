@@ -110,6 +110,17 @@ var LoadingUI = (function (_super) {
         this.textField.height = 50;
         this.textField.textAlign = "center";
         this.textField.text = "资源加载中...";
+        var str = "抵制不良游戏，拒绝盗版游戏。注意自我保护，谨防受骗上当\n适度游戏益脑，沉迷游戏伤身。合理安排时间，享受健康生活";
+        this.textHint = new egret.TextField();
+        // this.textHint.width = this.width;
+        this.textHint.lineSpacing = 15;
+        // this.textHint.textAlign = egret.HorizontalAlign.CENTER;
+        this.textHint.text = str;
+        this.textHint.size = 30;
+        this.textHint.textColor = 0x8c8c91;
+        this.textHint.x = (this.stage.stageWidth - this.textHint.width) / 2;
+        this.textHint.y = 50;
+        this.addChild(this.textHint);
     };
     LoadingUI.prototype.onProgress = function (current, total) {
         var d = current * this.w / total;

@@ -76,7 +76,6 @@ class Main extends eui.UILayer {
             await RES.loadGroup("preload", 1, loadingView);
             this.stage.removeChild(loadingView);
             platform.openDataContext.postMessage({command:'loadRes'});
-            RES.setMaxLoadingThread(4);
         }
         catch (e) {
             console.error(e);
@@ -118,11 +117,6 @@ class Main extends eui.UILayer {
         Data.i().sound = new SoundContainer(arr)
 
         platform.showShareMenu({})
-        
-        platform.createFeedbackButton()
-
-
-
 
     }
 }

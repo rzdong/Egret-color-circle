@@ -170,7 +170,7 @@ var Game = (function (_super) {
     };
     Game.prototype.createGameOver = function () {
         var _this = this;
-        platform.shake(2); // 震动效果
+        platform.shake(2); // 长震动效果
         this.leftBtn.touchEnabled = false;
         this.rightBtn.touchEnabled = false;
         if (!this.stage)
@@ -185,9 +185,6 @@ var Game = (function (_super) {
         egret.Tween.get(this.rightBtn).to({ x: Width }, 500, egret.Ease.backIn).call(function () {
             egret.Tween.removeTweens(_this.rightBtn);
         });
-        // egret.Tween.get(this.circleGroup).to({y: -Height / 2}, 500, egret.Ease.backIn).call(() => {
-        //     egret.Tween.removeTweens(this.circleGroup);
-        // })
         this.removeChild(this.circleGroup);
         egret.Tween.get(this.score).to({ verticalCenter: -500 }, 500, egret.Ease.backIn).call(function () {
             egret.Tween.removeTweens(_this.score);
@@ -215,6 +212,12 @@ var Game = (function (_super) {
         score.horizontalCenter = 0;
         score.textColor = 0x33CCFF;
         this.addChild(score);
+        console.error('platform.userInfo', platform.userInfo);
+        platform.openDataContext.postMessage({
+            command: 'updateScore',
+            score: this.score.text,
+            userInfo: platform.userInfo
+        });
         var reBegin = new eui.Label('重新开始');
         reBegin.alpha = 0;
         reBegin.horizontalCenter = 0;
@@ -377,6 +380,7 @@ var Game = (function (_super) {
     };
     Game.prototype.leftRound = function () {
         var _this = this;
+        platform.shake(1); // 震动效果
         egret.Tween.removeTweens(this.circleGroup);
         if (this.circleGroup.rotation == -180)
             this.circleGroup.rotation = 180;
@@ -391,6 +395,7 @@ var Game = (function (_super) {
         });
     };
     Game.prototype.RightRound = function () {
+        platform.shake(1); // 震动效果
         egret.Tween.removeTweens(this.circleGroup);
         if (this.circleGroup.rotation == 180)
             this.circleGroup.rotation = -180;
