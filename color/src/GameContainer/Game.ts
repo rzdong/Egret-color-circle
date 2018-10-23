@@ -195,27 +195,27 @@ class Game extends BaseUILayer {
         }}).to({y: 600}, 650, egret.Ease.cubicIn)
             .call(() => {
                 
-                if(this.nextColorIndex != this.currentColorIndex){
-                    console.log('游戏结束')
-                    this.removeChild(this.ball);
-                    egret.Tween.removeTweens(this.ball)
-                    this.createGameOver()
-                }else {
-                    this.score.text = Number(this.score.text) + 1 + '' // 分数增加
+                // if(this.nextColorIndex != this.currentColorIndex){
+                //     console.log('游戏结束')
+                //     this.removeChild(this.ball);
+                //     egret.Tween.removeTweens(this.ball)
+                //     this.createGameOver()
+                // }else {
+                //     this.score.text = Number(this.score.text) + 1 + '' // 分数增加
                     
-                    // this.jumpSound.play() // 音效播放
-                    platform.playAudio('resource/music/jump.wav')
+                //     // this.jumpSound.play() // 音效播放
+                //     platform.playAudio('resource/music/jump.wav')
 
-                    platform.shake(1); // 震动效果
+                //     platform.shake(1); // 震动效果
 
-                    this.nextColorIndex = Math.floor(Math.random() * this.colorTexture.length) // 随机下次颜色记录索引
+                //     this.nextColorIndex = Math.floor(Math.random() * this.colorTexture.length) // 随机下次颜色记录索引
 
-                    this.ball.texture = this.colorTexture[this.nextColorIndex] // 改变贴图
+                //     this.ball.texture = this.colorTexture[this.nextColorIndex] // 改变贴图
 
-                    egret.Tween.get(this.circleGroup).to({scaleX: 1.1, scaleY:1.1}, 100).to({scaleX: 1, scaleY: 1}, 100).call(() => {
+                //     egret.Tween.get(this.circleGroup).to({scaleX: 1.1, scaleY:1.1}, 100).to({scaleX: 1, scaleY: 1}, 100).call(() => {
 
-                    })
-                }
+                //     })
+                // }
 
                 console.log('球的' + this.nextColorIndex, '圆环' + this.currentColorIndex)
 
@@ -468,41 +468,54 @@ class Game extends BaseUILayer {
     }
 
 
-
+    private currTemp = 0
     private leftRound() : void {
         platform.shake(1); // 震动效果
         egret.Tween.removeTweens(this.circleGroup);
-        if(this.circleGroup.rotation == -180) this.circleGroup.rotation = 180
+        let timekeep = 0;
+        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 5
+
+        if(this.currTemp == -180) this.circleGroup.rotation = 180
         this.currentColorIndex = (++this.currentColorIndex) % 6
         this.currentDeg -= 60
         if(this.currentDeg < -180){
             this.currentDeg = 360 + this.currentDeg
         }
 
-        let currTemp = this.currentDeg
-        egret.Tween.get(this.circleGroup).to({rotation: currTemp}, 200, egret.Ease.circInOut).call(() => {
+        this.currTemp = this.currentDeg
+
+        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 5
+
+
+        egret.Tween.get(this.circleGroup).to({rotation: this.currTemp}, timekeep, egret.Ease.sineInOut).call(() => {
             
             console.log(this.colorList[this.currentColorIndex], this.currentColorIndex, this.currentDeg , this.circleGroup.rotation)
         })
         
     }
-
+    
     private RightRound() : void {
+        
         platform.shake(1); // 震动效果
         egret.Tween.removeTweens(this.circleGroup);
-        if(this.circleGroup.rotation == 180) this.circleGroup.rotation = -180
+
+        let timekeep = 0;
+
+        if(this.currTemp == 180) this.circleGroup.rotation = -180
 
         if(--this.currentColorIndex < 0){
             this.currentColorIndex = 6 - Math.abs(this.currentColorIndex % 6)
         }
-        this.currentDeg = (this.currentDeg + 60)
+        this.currentDeg += 60
+
         if(this.currentDeg > 180){
             this.currentDeg = this.currentDeg - 360
         }
-        console.log(this.colorList[this.currentColorIndex], this.currentColorIndex, this.currentDeg , this.circleGroup.rotation)
 
-        let currTemp = this.currentDeg
-        egret.Tween.get(this.circleGroup).to({rotation: currTemp}, 200, egret.Ease.circInOut).call(() => {
+        this.currTemp = this.currentDeg
+        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 5
+        
+        egret.Tween.get(this.circleGroup).to({rotation: this.currTemp}, timekeep, egret.Ease.sineInOut).call(() => {
             // console.log(this.colorList[this.currentColorIndex], this.currentColorIndex, this.currentDeg , this.circleGroup.rotation)
         })
         

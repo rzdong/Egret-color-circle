@@ -362,7 +362,8 @@ var Home = (function (_super) {
         suggestText.x = 20;
         suggestText.y = (this.suggestBtn.height - suggestText.size) / 2;
         this.suggestBtn.addChild(suggestText);
-        this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.suggestBegin, this);
+        // this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.suggestBegin, this)
+        platform.createFeedbackButton();
         egret.Tween.get(this.startBtn).to({ y: Height - this.startBtn.height / 2 }, 400, egret.Ease.backOut).call(function () {
             egret.Tween.removeTweens(_this.startBtn);
         });
@@ -392,6 +393,7 @@ var Home = (function (_super) {
         this.aboutBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.aboutEnd, this);
     };
     Home.prototype.aboutEnd = function (ev) {
+        var _this = this;
         this.aboutBtn.scaleX = 1;
         this.aboutBtn.scaleY = 1;
         this.aboutBtn.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.aboutEnd, this);
@@ -401,8 +403,10 @@ var Home = (function (_super) {
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入关于');
             platform.playAudio('resource/music/tap1.mp3');
-            this.removeSelf();
-            this._GameContainer.createAbout();
+            egret.setTimeout(function () {
+                _this.removeSelf();
+                _this._GameContainer.createAbout();
+            }, this, 80);
         }
     };
     Home.prototype.shareBegin = function () {
@@ -421,10 +425,12 @@ var Home = (function (_super) {
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入分享');
             platform.playAudio('resource/music/tap1.mp3');
-            platform.shareToFriend({
-                title: '快来和我一起玩球球',
-                imageUrl: 'resource/game_res/share1.jpg'
-            });
+            egret.setTimeout(function () {
+                platform.shareToFriend({
+                    title: '快来和我一起玩球球',
+                    imageUrl: 'resource/game_res/share1.jpg'
+                });
+            }, this, 80);
         }
     };
     Home.prototype.rankBegin = function () {
@@ -434,6 +440,7 @@ var Home = (function (_super) {
         this.rankBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.rankEnd, this);
     };
     Home.prototype.rankEnd = function (ev) {
+        var _this = this;
         this.rankBtn.scaleX = 1;
         this.rankBtn.scaleY = 1;
         this.rankBtn.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.rankEnd, this);
@@ -444,7 +451,9 @@ var Home = (function (_super) {
             platform.playAudio('resource/music/tap1.mp3');
             // if(!this.rank) this.rank = new Rank();
             // this.addChild(this.rank)
-            this.addChild(new Rank());
+            egret.setTimeout(function () {
+                _this.addChild(new Rank());
+            }, this, 80);
             // Data.i().Toast('暂未开放')
         }
     };
@@ -466,7 +475,9 @@ var Home = (function (_super) {
             console.log('进入设置');
             // this.removeSelf();
             // this._GameContainer.createSetting();
-            Data.i().Toast('暂未开放');
+            egret.setTimeout(function () {
+                Data.i().Toast('暂未开放');
+            }, this, 80);
         }
     };
     Home.prototype.gradeBegin = function () {
@@ -487,29 +498,30 @@ var Home = (function (_super) {
             platform.playAudio('resource/music/tap1.mp3');
             // this.removeSelf();
             // this._GameContainer.createGrade();
-            Data.i().Toast('暂未开放');
+            egret.setTimeout(function () {
+                Data.i().Toast('暂未开放');
+            }, this, 80);
         }
     };
     Home.prototype.suggestBegin = function () {
-        this.suggestBtn.scaleX = 0.9;
-        this.suggestBtn.scaleY = 0.9;
-        this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.suggestEnd, this);
-        this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.suggestEnd, this);
+        // this.suggestBtn.scaleX = 0.9;
+        // this.suggestBtn.scaleY = 0.9;
+        // this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.suggestEnd, this)
+        // this.suggestBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.suggestEnd, this)
     };
     Home.prototype.suggestEnd = function (ev) {
-        this.suggestBtn.scaleX = 1;
-        this.suggestBtn.scaleY = 1;
-        this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.suggestEnd, this);
-        this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_END, this.suggestEnd, this);
-        if (ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE) {
-        }
-        else if (ev.type == egret.TouchEvent.TOUCH_END) {
-            console.log('进入建议');
-            platform.playAudio('resource/music/tap1.mp3');
-            // this.removeSelf();
-            // this._GameContainer.createSuggest();
-            platform.openCustomerServiceConversation();
-        }
+        // this.suggestBtn.scaleX = 1;
+        // this.suggestBtn.scaleY = 1;
+        // this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.suggestEnd, this)
+        // this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_END, this.suggestEnd, this)
+        // if(ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE){
+        // }else if(ev.type == egret.TouchEvent.TOUCH_END){
+        //     console.log('进入建议')
+        //     platform.playAudio('resource/music/tap1.mp3')
+        // this.removeSelf();
+        // this._GameContainer.createSuggest();
+        // platform.openCustomerServiceConversation()
+        // }
     };
     Home.prototype.startBegin = function () {
         this.startBtn.scaleX = 0.9;
@@ -518,6 +530,7 @@ var Home = (function (_super) {
         this.startBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.startEnd, this);
     };
     Home.prototype.startEnd = function (ev) {
+        var _this = this;
         this.startBtn.scaleX = 1;
         this.startBtn.scaleY = 1;
         this.startBtn.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.startEnd, this);
@@ -527,8 +540,10 @@ var Home = (function (_super) {
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入游戏');
             platform.playAudio('resource/music/tap1.mp3');
-            this.removeSelf();
-            this._GameContainer.createGame();
+            egret.setTimeout(function () {
+                _this.removeSelf();
+                _this._GameContainer.createGame();
+            }, this, 80);
         }
     };
     Home.prototype.removeSelf = function () {
@@ -538,7 +553,7 @@ var Home = (function (_super) {
         this.rankBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.rankBegin, this);
         this.settingBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.settingBegin, this);
         this.gradeBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.gradeBegin, this);
-        this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.suggestBegin, this);
+        // this.suggestBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.suggestBegin, this)
         this.parent.removeChild(this);
     };
     return Home;

@@ -466,40 +466,49 @@ function addOpenDataContextListener() {
 
     } else if(data.command == 'updateScore'){
       let score = data.score
-      if (totalGroup.length == 0){
-        wx.setUserCloudStorage({
-          KVDataList: [{ key: 'maxScore', value: 0 }],
-          success: (res) => {
-            updateRank()
-          },
-          fail: (err) => {
-          },
-          complete: () => {
 
-          }
-        })
-      } else {
+        let userSelfData = null;
+
+
+
         for (let i = 0; i < totalGroup.length; i++) {
           if (totalGroup[i].url == data.userInfo.avatarUrl && totalGroup[i].name == data.userInfo.nickName) {
-            if (score > totalGroup[i].scores) {
-              wx.setUserCloudStorage({
-                KVDataList: [{ key: 'maxScore', value: score }],
-                success: (res) => {
-                  console.log('有最高分', score, res)
-                  updateRank()
-                },
-                fail: (err) => {
-                },
-                complete: () => {
-
-                }
-              })
-
-            }
+            userSelfData = totalGroup[i]
           }
 
         }
-      }
+
+        if(userSelfData == null){
+          wx.setUserCloudStorage({
+            KVDataList: [{ key: 'maxScore', value: score }],
+            success: (res) => {
+              updateRank()
+            },
+            fail: (err) => {
+            },
+            complete: () => {
+
+            }
+          })
+        }else {
+          if (score > userSelfData.scores) {
+            wx.setUserCloudStorage({
+              KVDataList: [{ key: 'maxScore', value: score }],
+              success: (res) => {
+                console.log('更新最高分', score, '原来最高分', userSelfData.scores)
+                updateRank()
+              },
+              fail: (err) => {
+              },
+              complete: () => {
+
+              }
+            })
+
+          }else {
+            console.log('分数为', score, '最高分', userSelfData.scores)
+          }
+        }
     }
   });
 }

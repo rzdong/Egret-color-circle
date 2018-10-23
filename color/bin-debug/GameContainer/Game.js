@@ -13,12 +13,14 @@ var Game = (function (_super) {
     function Game(GC) {
         var _this = _super.call(this) || this;
         _this.currentDeg = 0; // 当前转过的角度。
+        _this.currTemp = 0;
         _this._GameContainer = GC;
         return _this;
     }
     Game.prototype.init = function () {
         var _this = this;
         console.log('Game已加载');
+        platform.hideFeedBack();
         this.colorList = ['violet', 'dyellow', 'blue', 'red', 'yellow', 'green'];
         this.colorTexture = [
             RES.getRes('circle-violte_png'),
@@ -148,22 +150,21 @@ var Game = (function (_super) {
                 }
             } }).to({ y: 600 }, 650, egret.Ease.cubicIn)
             .call(function () {
-            if (_this.nextColorIndex != _this.currentColorIndex) {
-                console.log('游戏结束');
-                _this.removeChild(_this.ball);
-                egret.Tween.removeTweens(_this.ball);
-                _this.createGameOver();
-            }
-            else {
-                _this.score.text = Number(_this.score.text) + 1 + ''; // 分数增加
-                // this.jumpSound.play() // 音效播放
-                platform.playAudio('resource/music/jump.wav');
-                platform.shake(1); // 震动效果
-                _this.nextColorIndex = Math.floor(Math.random() * _this.colorTexture.length); // 随机下次颜色记录索引
-                _this.ball.texture = _this.colorTexture[_this.nextColorIndex]; // 改变贴图
-                egret.Tween.get(_this.circleGroup).to({ scaleX: 1.1, scaleY: 1.1 }, 100).to({ scaleX: 1, scaleY: 1 }, 100).call(function () {
-                });
-            }
+            // if(this.nextColorIndex != this.currentColorIndex){
+            //     console.log('游戏结束')
+            //     this.removeChild(this.ball);
+            //     egret.Tween.removeTweens(this.ball)
+            //     this.createGameOver()
+            // }else {
+            //     this.score.text = Number(this.score.text) + 1 + '' // 分数增加
+            //     // this.jumpSound.play() // 音效播放
+            //     platform.playAudio('resource/music/jump.wav')
+            //     platform.shake(1); // 震动效果
+            //     this.nextColorIndex = Math.floor(Math.random() * this.colorTexture.length) // 随机下次颜色记录索引
+            //     this.ball.texture = this.colorTexture[this.nextColorIndex] // 改变贴图
+            //     egret.Tween.get(this.circleGroup).to({scaleX: 1.1, scaleY:1.1}, 100).to({scaleX: 1, scaleY: 1}, 100).call(() => {
+            //     })
+            // }
             console.log('球的' + _this.nextColorIndex, '圆环' + _this.currentColorIndex);
         })
             .to({ y: Height / 2 - 150 }, 600, egret.Ease.circOut);
@@ -382,33 +383,37 @@ var Game = (function (_super) {
         var _this = this;
         platform.shake(1); // 震动效果
         egret.Tween.removeTweens(this.circleGroup);
-        if (this.circleGroup.rotation == -180)
+        var timekeep = 0;
+        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 5;
+        if (this.currTemp == -180)
             this.circleGroup.rotation = 180;
         this.currentColorIndex = (++this.currentColorIndex) % 6;
         this.currentDeg -= 60;
         if (this.currentDeg < -180) {
             this.currentDeg = 360 + this.currentDeg;
         }
-        var currTemp = this.currentDeg;
-        egret.Tween.get(this.circleGroup).to({ rotation: currTemp }, 200, egret.Ease.circInOut).call(function () {
+        this.currTemp = this.currentDeg;
+        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 5;
+        egret.Tween.get(this.circleGroup).to({ rotation: this.currTemp }, timekeep, egret.Ease.sineInOut).call(function () {
             console.log(_this.colorList[_this.currentColorIndex], _this.currentColorIndex, _this.currentDeg, _this.circleGroup.rotation);
         });
     };
     Game.prototype.RightRound = function () {
         platform.shake(1); // 震动效果
         egret.Tween.removeTweens(this.circleGroup);
-        if (this.circleGroup.rotation == 180)
+        var timekeep = 0;
+        if (this.currTemp == 180)
             this.circleGroup.rotation = -180;
         if (--this.currentColorIndex < 0) {
             this.currentColorIndex = 6 - Math.abs(this.currentColorIndex % 6);
         }
-        this.currentDeg = (this.currentDeg + 60);
+        this.currentDeg += 60;
         if (this.currentDeg > 180) {
             this.currentDeg = this.currentDeg - 360;
         }
-        console.log(this.colorList[this.currentColorIndex], this.currentColorIndex, this.currentDeg, this.circleGroup.rotation);
-        var currTemp = this.currentDeg;
-        egret.Tween.get(this.circleGroup).to({ rotation: currTemp }, 200, egret.Ease.circInOut).call(function () {
+        this.currTemp = this.currentDeg;
+        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 5;
+        egret.Tween.get(this.circleGroup).to({ rotation: this.currTemp }, timekeep, egret.Ease.sineInOut).call(function () {
             // console.log(this.colorList[this.currentColorIndex], this.currentColorIndex, this.currentDeg , this.circleGroup.rotation)
         });
     };
@@ -419,6 +424,7 @@ var Game = (function (_super) {
         this.backBitmap.addEventListener(egret.TouchEvent.TOUCH_END, this.backEnd, this);
     };
     Game.prototype.backEnd = function (ev) {
+        var _this = this;
         platform.playAudio('resource/music/tap1.mp3');
         this.backBitmap.scaleX = 1;
         this.backBitmap.scaleY = 1;
@@ -430,8 +436,11 @@ var Game = (function (_super) {
             console.log('回到首页');
             if (this.gameOverMusic)
                 this.gameOverMusic.stop();
-            this.beforeRemove();
-            this._GameContainer.createHome();
+            platform.playAudio('resource/music/tap1.mp3');
+            egret.setTimeout(function () {
+                _this.beforeRemove();
+                _this._GameContainer.createHome();
+            }, this, 80);
         }
     };
     return Game;

@@ -17,6 +17,7 @@ var About = (function (_super) {
     }
     About.prototype.init = function () {
         var _this = this;
+        platform.hideFeedBack();
         var Width = this.stage.stageWidth - 300;
         var Height = this.stage.stageHeight - 200;
         this.backBitmap = Util.createBitmapByName('back_png');
@@ -65,6 +66,7 @@ var About = (function (_super) {
         this.backBitmap.addEventListener(egret.TouchEvent.TOUCH_END, this.backEnd, this);
     };
     About.prototype.backEnd = function (ev) {
+        var _this = this;
         this.backBitmap.scaleX = 1;
         this.backBitmap.scaleY = 1;
         this.backBitmap.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.backEnd, this);
@@ -73,8 +75,10 @@ var About = (function (_super) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             platform.playAudio('resource/music/tap1.mp3');
-            this.beforeRemove();
-            this._GameContainer.createHome();
+            egret.setTimeout(function () {
+                _this.beforeRemove();
+                _this._GameContainer.createHome();
+            }, this, 80);
         }
     };
     About.prototype.beforeRemove = function () {

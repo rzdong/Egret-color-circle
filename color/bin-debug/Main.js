@@ -168,7 +168,6 @@ var Main = (function (_super) {
         ];
         Data.i().sound = new SoundContainer(arr);
         platform.showShareMenu({});
-        platform.createFeedbackButton();
     };
     return Main;
 }(eui.UILayer));

@@ -43,6 +43,7 @@ var DebugPlatform = (function () {
             postMessage: function () { }
         };
         this.userInfo = null;
+        this.feedBackBtn = null;
     }
     DebugPlatform.prototype.getUserInfo = function (cb) {
         return __awaiter(this, void 0, void 0, function () {
@@ -74,6 +75,10 @@ var DebugPlatform = (function () {
     DebugPlatform.prototype.playAudio = function (url) {
     };
     DebugPlatform.prototype.createFeedbackButton = function () {
+    };
+    DebugPlatform.prototype.hideFeedBack = function () {
+    };
+    DebugPlatform.prototype.showFeedBack = function () {
     };
     return DebugPlatform;
 }());

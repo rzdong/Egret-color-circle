@@ -15,6 +15,7 @@ var Rank = (function (_super) {
     }
     Rank.prototype.init = function () {
         var _this = this;
+        platform.hideFeedBack();
         var Width = 400;
         var Height = 750;
         var vLayout = new eui.VerticalLayout();
@@ -78,6 +79,7 @@ var Rank = (function (_super) {
             platform.openDataContext.postMessage({
                 command: 'close'
             });
+            platform.showFeedBack();
             _this.removeChildren();
             _this.shapeWhite.removeChildren();
             _this.parent.removeChild(_this);
