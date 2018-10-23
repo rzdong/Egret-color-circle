@@ -195,27 +195,27 @@ class Game extends BaseUILayer {
         }}).to({y: 600}, 650, egret.Ease.cubicIn)
             .call(() => {
                 
-                // if(this.nextColorIndex != this.currentColorIndex){
-                //     console.log('游戏结束')
-                //     this.removeChild(this.ball);
-                //     egret.Tween.removeTweens(this.ball)
-                //     this.createGameOver()
-                // }else {
-                //     this.score.text = Number(this.score.text) + 1 + '' // 分数增加
+                if(this.nextColorIndex != this.currentColorIndex){
+                    console.log('游戏结束')
+                    this.removeChild(this.ball);
+                    egret.Tween.removeTweens(this.ball)
+                    this.createGameOver()
+                }else {
+                    this.score.text = Number(this.score.text) + 1 + '' // 分数增加
                     
-                //     // this.jumpSound.play() // 音效播放
-                //     platform.playAudio('resource/music/jump.wav')
+                    // this.jumpSound.play() // 音效播放
+                    platform.playAudio('resource/music/jump.wav')
 
-                //     platform.shake(1); // 震动效果
+                    platform.shake(1); // 震动效果
 
-                //     this.nextColorIndex = Math.floor(Math.random() * this.colorTexture.length) // 随机下次颜色记录索引
+                    this.nextColorIndex = Math.floor(Math.random() * this.colorTexture.length) // 随机下次颜色记录索引
 
-                //     this.ball.texture = this.colorTexture[this.nextColorIndex] // 改变贴图
+                    this.ball.texture = this.colorTexture[this.nextColorIndex] // 改变贴图
 
-                //     egret.Tween.get(this.circleGroup).to({scaleX: 1.1, scaleY:1.1}, 100).to({scaleX: 1, scaleY: 1}, 100).call(() => {
+                    egret.Tween.get(this.circleGroup).to({scaleX: 1.1, scaleY:1.1}, 100).to({scaleX: 1, scaleY: 1}, 100).call(() => {
 
-                //     })
-                // }
+                    })
+                }
 
                 console.log('球的' + this.nextColorIndex, '圆环' + this.currentColorIndex)
 
