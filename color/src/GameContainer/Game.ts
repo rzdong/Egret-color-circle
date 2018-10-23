@@ -192,7 +192,7 @@ class Game extends BaseUILayer {
                 })
             }
             
-        }}).to({y: 600}, 650, egret.Ease.cubicIn)
+        }}).to({y: 600}, 720, egret.Ease.cubicIn)
             .call(() => {
                 
                 if(this.nextColorIndex != this.currentColorIndex){
@@ -221,7 +221,7 @@ class Game extends BaseUILayer {
 
                 
             })
-            .to({y: Height / 2 - 150}, 600, egret.Ease.circOut)
+            .to({y: Height / 2 - 150}, 720, egret.Ease.circOut)
     }
     private gameOverMusic;
     // private homeBitmap: egret.Bitmap
@@ -471,9 +471,8 @@ class Game extends BaseUILayer {
     private currTemp = 0
     private leftRound() : void {
         platform.shake(1); // 震动效果
-        egret.Tween.removeTweens(this.circleGroup);
+        // egret.Tween.removeTweens(this.circleGroup);
         let timekeep = 0;
-        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 5
 
         if(this.currTemp == -180) this.circleGroup.rotation = 180
         this.currentColorIndex = (++this.currentColorIndex) % 6
@@ -484,7 +483,7 @@ class Game extends BaseUILayer {
 
         this.currTemp = this.currentDeg
 
-        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 5
+        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 252 / 60
 
 
         egret.Tween.get(this.circleGroup).to({rotation: this.currTemp}, timekeep, egret.Ease.sineInOut).call(() => {
@@ -497,7 +496,7 @@ class Game extends BaseUILayer {
     private RightRound() : void {
         
         platform.shake(1); // 震动效果
-        egret.Tween.removeTweens(this.circleGroup);
+        // egret.Tween.removeTweens(this.circleGroup);
 
         let timekeep = 0;
 
@@ -513,7 +512,7 @@ class Game extends BaseUILayer {
         }
 
         this.currTemp = this.currentDeg
-        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 5
+        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 252 / 60
         
         egret.Tween.get(this.circleGroup).to({rotation: this.currTemp}, timekeep, egret.Ease.sineInOut).call(() => {
             // console.log(this.colorList[this.currentColorIndex], this.currentColorIndex, this.currentDeg , this.circleGroup.rotation)
