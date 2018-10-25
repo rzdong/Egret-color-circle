@@ -58,7 +58,8 @@ class About extends BaseUILayer {
 
 		group.addChild(new eui.Label('2. 有任何建议或者意见可以点击首页右下角建议按钮提供给开发者'))
 
-		group.addChild(new eui.Label('3. 排行榜，设置，难度相关功能后续会跟进'))
+		group.addChild(new eui.Label('3. 排行榜优化，设置功能，后续会跟进'))
+
 
 		this.addChild(this.swiper)
 	

@@ -96,17 +96,17 @@ class Grade extends BaseUILayer {
 
         var radio3:eui.RadioButton = new eui.RadioButton();
 		radio3.height = 50;
-        radio3.label = "一般（660ms）";
+        radio3.label = "一般（680ms）";
         radio3.group = radioGroup;
-        radio3.value = "660";
+        radio3.value = "680";
         radio3.addEventListener(egret.Event.CHANGE,this.onChange,this);
         group.addChild(radio3);
 
 		var radio4:eui.RadioButton = new eui.RadioButton();
 		radio4.height = 50;
-        radio4.label = "困难（620ms）";
+        radio4.label = "困难（625ms）";
         radio4.group = radioGroup;
-        radio4.value = "620";
+        radio4.value = "625";
         radio4.addEventListener(egret.Event.CHANGE,this.onChange,this);
 		group.addChild(radio4);
 
@@ -132,7 +132,7 @@ class Grade extends BaseUILayer {
 	}
 
 	private onChange(e:egret.Event){
-		platform.playAudio('resource/music/tap.mp3')
+		platform.playAudio('resource/music/tap.wav')
         var radioButton = <eui.RadioButton>e.target;
         ///获取选择到的单选按钮的值
         let value = radioButton.value;
@@ -149,10 +149,10 @@ class Grade extends BaseUILayer {
 			case "710":
 				str = "简单";
 				break;
-			case "660":
+			case "680":
 				str = "一般";
 				break;
-			case "620":
+			case "625":
 				str = "困难";
 				break;
 			case "510":

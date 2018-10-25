@@ -27,6 +27,8 @@ class Game extends BaseUILayer {
 
 
     private gradeTime: number = 750;
+    private gradeText: string = null;
+
 
     constructor(GC: GameContainer){
         super();
@@ -37,7 +39,31 @@ class Game extends BaseUILayer {
         
 
         this.gradeTime = Data.i().grade;
-        console.log('Game已加载，难度：', this.gradeTime)
+        
+        console.log('Game已加载。难度：', this.gradeTime)
+        switch(this.gradeTime + ''){
+            case "950":
+                this.gradeText = "手残党";
+                break;
+            case "750":
+                this.gradeText = "入门";
+                break;
+            case "710":
+                this.gradeText = "简单";
+                break;
+            case "680":
+                this.gradeText = "一般";
+                break;
+            case "625":
+                this.gradeText = "困难";
+                break;
+            case "510":
+                this.gradeText = "非人类";
+                break;
+
+        }
+        
+        // Data.i().Toast('当前难度：' + this.gradeText, 1000)
         platform.hideFeedBack()
         this.colorList = ['violet', 'dyellow', 'blue', 'red' ,'yellow', 'green']
         this.colorTexture = [
@@ -172,7 +198,7 @@ class Game extends BaseUILayer {
             
         })
 
-        
+        this.createGradeBanner()
 
  
     }
@@ -287,7 +313,7 @@ class Game extends BaseUILayer {
 
         console.error('platform.userInfo', platform.userInfo)
 
-        if(this.gradeTime > 670 ){
+        if(this.gradeTime > 680 ){
             Data.i().Toast('难度过低不会将分数更新至排行榜', 3000)
         }else {
             platform.openDataContext.postMessage({
@@ -417,7 +443,7 @@ class Game extends BaseUILayer {
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             platform.playAudio('resource/music/tap1.mp3')
             platform.shareToFriend({
-                title: (platform.userInfo ? platform.userInfo.nickName : '这位') +' 同学居然混到了' + this.score.text + '分, 求求你们快点超过他吧',
+                title: '天啦噜!⊙▽⊙|| ' + (platform.userInfo ? platform.userInfo.nickName : '这位') +' 同学居然在 [' + this.gradeText + '] 级别混到了' + this.score.text + '分',
                 imageUrl: 'resource/game_res/share1.jpg'
             })
         }
@@ -557,5 +583,38 @@ class Game extends BaseUILayer {
             
         }
 	}
+
+    private createGradeBanner(): void {
+        let size = 28
+        let Height = this.stage.stageHeight;
+        let Width = this.stage.stageWidth;
+        
+
+        let sprite = new egret.Sprite()
+        sprite.width = ('当前难度：' + this.gradeText).length * size + 30 *2;
+        sprite.height = size + 30 * 2;
+        sprite.graphics.beginFill(0xffffff, 1);
+        sprite.graphics.drawRect(0, 0, sprite.width, sprite.height);
+        sprite.graphics.endFill();
+
+        sprite.x = Width / 2 + 280;
+        sprite.y = -100;
+
+        let textFild = new egret.TextField();
+        textFild.size = size;
+        textFild.text = '当前难度：' + this.gradeText;
+        textFild.textColor = 0x000000;
+        textFild.width = sprite.width;
+        textFild.height = sprite.height;
+        textFild.textAlign = egret.HorizontalAlign.CENTER;
+        textFild.verticalAlign = egret.VerticalAlign.MIDDLE;
+        sprite.addChild(textFild)
+        this.addChild(sprite);
+
+        egret.Tween.get(sprite).wait(100).to({y: 30}, 500, egret.Ease.backOut).wait(2000).to({y: -100}, 300, egret.Ease.backIn).call(() => {
+            egret.Tween.removeTweens(sprite);
+            this.removeChild(sprite)
+        })
+    }
 
 }

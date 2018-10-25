@@ -14,6 +14,7 @@ var Game = (function (_super) {
         var _this = _super.call(this) || this;
         _this.currentDeg = 0; // 当前转过的角度。
         _this.gradeTime = 750;
+        _this.gradeText = null;
         _this.currTemp = 0;
         _this._GameContainer = GC;
         return _this;
@@ -21,7 +22,28 @@ var Game = (function (_super) {
     Game.prototype.init = function () {
         var _this = this;
         this.gradeTime = Data.i().grade;
-        console.log('Game已加载，难度：', this.gradeTime);
+        console.log('Game已加载。难度：', this.gradeTime);
+        switch (this.gradeTime + '') {
+            case "950":
+                this.gradeText = "手残党";
+                break;
+            case "750":
+                this.gradeText = "入门";
+                break;
+            case "710":
+                this.gradeText = "简单";
+                break;
+            case "680":
+                this.gradeText = "一般";
+                break;
+            case "625":
+                this.gradeText = "困难";
+                break;
+            case "510":
+                this.gradeText = "非人类";
+                break;
+        }
+        // Data.i().Toast('当前难度：' + this.gradeText, 1000)
         platform.hideFeedBack();
         this.colorList = ['violet', 'dyellow', 'blue', 'red', 'yellow', 'green'];
         this.colorTexture = [
@@ -129,6 +151,7 @@ var Game = (function (_super) {
             egret.Tween.removeTweens(_this.ball);
             _this.startGame();
         });
+        this.createGradeBanner();
     };
     Game.prototype.startGame = function () {
         var _this = this;
@@ -165,7 +188,7 @@ var Game = (function (_super) {
                 platform.shake(1); // 震动效果
                 _this.nextColorIndex = Math.floor(Math.random() * _this.colorTexture.length); // 随机下次颜色记录索引
                 _this.ball.texture = _this.colorTexture[_this.nextColorIndex]; // 改变贴图
-                egret.Tween.get(_this.circleGroup).to({ scaleX: 1.1, scaleY: 1.1 }, 100, egret.Ease.elasticInOut).to({ scaleX: 1, scaleY: 1 }, 100).call(function () {
+                egret.Tween.get(_this.circleGroup).to({ scaleX: 1.1, scaleY: 1.1 }, 100).to({ scaleX: 1, scaleY: 1 }, 100).call(function () {
                 });
             }
             console.log('球的' + _this.nextColorIndex, '圆环' + _this.currentColorIndex);
@@ -332,7 +355,7 @@ var Game = (function (_super) {
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             platform.playAudio('resource/music/tap1.mp3');
             platform.shareToFriend({
-                title: (platform.userInfo ? platform.userInfo.nickName : '这位') + ' 同学居然混到了' + this.score.text + '分, 求求你们快点超过他吧',
+                title: '天啦噜!⊙▽⊙|| ' + (platform.userInfo ? platform.userInfo.nickName : '这位') + ' 同学居然在 [' + this.gradeText + '] 级别混到了' + this.score.text + '分',
                 imageUrl: 'resource/game_res/share1.jpg'
             });
         }
@@ -449,6 +472,34 @@ var Game = (function (_super) {
                 _this._GameContainer.createHome();
             }, this, 80);
         }
+    };
+    Game.prototype.createGradeBanner = function () {
+        var _this = this;
+        var size = 28;
+        var Height = this.stage.stageHeight;
+        var Width = this.stage.stageWidth;
+        var sprite = new egret.Sprite();
+        sprite.width = ('当前难度：' + this.gradeText).length * size + 30 * 2;
+        sprite.height = size + 30 * 2;
+        sprite.graphics.beginFill(0xffffff, 1);
+        sprite.graphics.drawRect(0, 0, sprite.width, sprite.height);
+        sprite.graphics.endFill();
+        sprite.x = Width / 2 + 280;
+        sprite.y = -100;
+        var textFild = new egret.TextField();
+        textFild.size = size;
+        textFild.text = '当前难度：' + this.gradeText;
+        textFild.textColor = 0x000000;
+        textFild.width = sprite.width;
+        textFild.height = sprite.height;
+        textFild.textAlign = egret.HorizontalAlign.CENTER;
+        textFild.verticalAlign = egret.VerticalAlign.MIDDLE;
+        sprite.addChild(textFild);
+        this.addChild(sprite);
+        egret.Tween.get(sprite).wait(100).to({ y: 30 }, 500, egret.Ease.backOut).wait(2000).to({ y: -100 }, 300, egret.Ease.backIn).call(function () {
+            egret.Tween.removeTweens(sprite);
+            _this.removeChild(sprite);
+        });
     };
     return Game;
 }(BaseUILayer));

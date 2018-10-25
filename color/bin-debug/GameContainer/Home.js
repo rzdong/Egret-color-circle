@@ -427,7 +427,7 @@ var Home = (function (_super) {
             platform.playAudio('resource/music/tap1.mp3');
             egret.setTimeout(function () {
                 platform.shareToFriend({
-                    title: '快来和我一起玩这个球',
+                    title: '快来和我一起玩这个球( •ิ_• ิ)',
                     imageUrl: 'resource/game_res/share1.jpg'
                 });
             }, this, 80);

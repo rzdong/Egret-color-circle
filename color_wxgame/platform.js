@@ -76,7 +76,7 @@ class WxgamePlatform {
     wx.showShareMenu();
     wx.onShareAppMessage(() => {
       return {
-        title: '恕我直言，在座的各位，都没我6',
+        title: '恕我直言，在座的各位，都没我优秀╭(╯^╰)╮',
         imageUrl: 'resource/game_res/share1.jpg'
       }
     })
@@ -102,17 +102,17 @@ class WxgamePlatform {
   }
   feedBackBtn = null
   createFeedbackButton() {
-    // wx.setUserCloudStorage({
-    //   KVDataList: [{ key: 'maxScore', value: '0' }],
-    //   success: (res) => {
-    //     // updateRank()
-    //   },
-    //   fail: (err) => {
-    //   },
-    //   complete: () => {
+    wx.setUserCloudStorage({
+      KVDataList: [{ key: 'maxScore', value: '0' }],
+      success: (res) => {
+        // updateRank()
+      },
+      fail: (err) => {
+      },
+      complete: () => {
 
-    //   }
-    // })
+      }
+    })
     // wx.removeUserCloudStorage({
     //   keyList: ['score']
     // })
@@ -166,16 +166,16 @@ class WxgamePlatform {
   }
 
   setUserCloudStorage() {
-    wx.setUserCloudStorage({
-      KVDataList: [{ key: 'maxScore', value: '0' }],
-      success: (res) => {
-      },
-      fail: (err) => {
-      },
-      complete: () => {
+    // wx.setUserCloudStorage({
+    //   KVDataList: [{ key: 'maxScore', value: '0' }],
+    //   success: (res) => {
+    //   },
+    //   fail: (err) => {
+    //   },
+    //   complete: () => {
 
-      }
-    })
+    //   }
+    // })
   }
 
   setToStorage(key, value){

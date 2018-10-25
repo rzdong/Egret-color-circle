@@ -34,7 +34,7 @@ class Rank extends BaseUILayer {
 		this.shapeWhite.width = Width;
 		this.shapeWhite.height = Height;
 		this.shapeWhite.x = -Width;
-		this.shapeWhite.touchEnabled = true;
+		this.shapeWhite.touchEnabled = false;
 		this.shapeWhite.graphics.beginFill(0x000000, 1)
 		this.shapeWhite.graphics.drawRect(0, 0, Width, Height);
 		this.shapeWhite.graphics.endFill();
@@ -78,6 +78,7 @@ class Rank extends BaseUILayer {
 
 	private closeRank(): void {
 		this.touchEnabled = false
+		this.shapebg.touchEnabled = false;
 		platform.playAudio('resource/music/tap1.mp3')
 		// platform.openDataContext.postMessage({
 		// 	command: 'close'
@@ -90,7 +91,8 @@ class Rank extends BaseUILayer {
 			platform.showFeedBack()
 			this.removeChildren()
 			this.shapeWhite.removeChildren()
-			this.parent.removeChild(this)
+			if(this && this.parent)
+				this.parent.removeChild(this)
 			
 		})
 		egret.Tween.get(this.shapebg).to({alpha: 0}, 300).call(() => {

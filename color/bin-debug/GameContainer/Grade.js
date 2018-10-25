@@ -84,16 +84,16 @@ var Grade = (function (_super) {
         group.addChild(radio2);
         var radio3 = new eui.RadioButton();
         radio3.height = 50;
-        radio3.label = "一般（660ms）";
+        radio3.label = "一般（680ms）";
         radio3.group = radioGroup;
-        radio3.value = "660";
+        radio3.value = "680";
         radio3.addEventListener(egret.Event.CHANGE, this.onChange, this);
         group.addChild(radio3);
         var radio4 = new eui.RadioButton();
         radio4.height = 50;
-        radio4.label = "困难（620ms）";
+        radio4.label = "困难（625ms）";
         radio4.group = radioGroup;
-        radio4.value = "620";
+        radio4.value = "625";
         radio4.addEventListener(egret.Event.CHANGE, this.onChange, this);
         group.addChild(radio4);
         var radio5 = new eui.RadioButton();
@@ -113,7 +113,7 @@ var Grade = (function (_super) {
         });
     };
     Grade.prototype.onChange = function (e) {
-        platform.playAudio('resource/music/tap.mp3');
+        platform.playAudio('resource/music/tap.wav');
         var radioButton = e.target;
         ///获取选择到的单选按钮的值
         var value = radioButton.value;
@@ -130,10 +130,10 @@ var Grade = (function (_super) {
             case "710":
                 str = "简单";
                 break;
-            case "660":
+            case "680":
                 str = "一般";
                 break;
-            case "620":
+            case "625":
                 str = "困难";
                 break;
             case "510":
