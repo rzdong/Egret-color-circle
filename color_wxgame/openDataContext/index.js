@@ -491,7 +491,7 @@ function addOpenDataContextListener() {
             }
           })
         }else {
-          if (score > userSelfData.scores) {
+          if (Number(score) > Number(userSelfData.scores)) {
             wx.setUserCloudStorage({
               KVDataList: [{ key: 'maxScore', value: score }],
               success: (res) => {

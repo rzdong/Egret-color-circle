@@ -13,13 +13,15 @@ var Game = (function (_super) {
     function Game(GC) {
         var _this = _super.call(this) || this;
         _this.currentDeg = 0; // 当前转过的角度。
+        _this.gradeTime = 750;
         _this.currTemp = 0;
         _this._GameContainer = GC;
         return _this;
     }
     Game.prototype.init = function () {
         var _this = this;
-        console.log('Game已加载');
+        this.gradeTime = Data.i().grade;
+        console.log('Game已加载，难度：', this.gradeTime);
         platform.hideFeedBack();
         this.colorList = ['violet', 'dyellow', 'blue', 'red', 'yellow', 'green'];
         this.colorTexture = [
@@ -148,26 +150,27 @@ var Game = (function (_super) {
                         _this.removeChild(shape1_1);
                     });
                 }
-            } }).to({ y: 600 }, 650, egret.Ease.cubicIn)
+            } }).to({ y: 600 }, this.gradeTime, egret.Ease.cubicIn)
             .call(function () {
-            // if(this.nextColorIndex != this.currentColorIndex){
-            //     console.log('游戏结束')
-            //     this.removeChild(this.ball);
-            //     egret.Tween.removeTweens(this.ball)
-            //     this.createGameOver()
-            // }else {
-            //     this.score.text = Number(this.score.text) + 1 + '' // 分数增加
-            //     // this.jumpSound.play() // 音效播放
-            //     platform.playAudio('resource/music/jump.wav')
-            //     platform.shake(1); // 震动效果
-            //     this.nextColorIndex = Math.floor(Math.random() * this.colorTexture.length) // 随机下次颜色记录索引
-            //     this.ball.texture = this.colorTexture[this.nextColorIndex] // 改变贴图
-            //     egret.Tween.get(this.circleGroup).to({scaleX: 1.1, scaleY:1.1}, 100).to({scaleX: 1, scaleY: 1}, 100).call(() => {
-            //     })
-            // }
+            if (_this.nextColorIndex != _this.currentColorIndex) {
+                console.log('游戏结束');
+                _this.removeChild(_this.ball);
+                egret.Tween.removeTweens(_this.ball);
+                _this.createGameOver();
+            }
+            else {
+                _this.score.text = Number(_this.score.text) + 1 + ''; // 分数增加
+                // this.jumpSound.play() // 音效播放
+                platform.playAudio('resource/music/jump.wav');
+                platform.shake(1); // 震动效果
+                _this.nextColorIndex = Math.floor(Math.random() * _this.colorTexture.length); // 随机下次颜色记录索引
+                _this.ball.texture = _this.colorTexture[_this.nextColorIndex]; // 改变贴图
+                egret.Tween.get(_this.circleGroup).to({ scaleX: 1.1, scaleY: 1.1 }, 100, egret.Ease.elasticInOut).to({ scaleX: 1, scaleY: 1 }, 100).call(function () {
+                });
+            }
             console.log('球的' + _this.nextColorIndex, '圆环' + _this.currentColorIndex);
         })
-            .to({ y: Height / 2 - 150 }, 600, egret.Ease.circOut);
+            .to({ y: Height / 2 - 150 }, this.gradeTime, egret.Ease.circOut);
     };
     Game.prototype.createGameOver = function () {
         var _this = this;
@@ -214,11 +217,16 @@ var Game = (function (_super) {
         score.textColor = 0x33CCFF;
         this.addChild(score);
         console.error('platform.userInfo', platform.userInfo);
-        platform.openDataContext.postMessage({
-            command: 'updateScore',
-            score: this.score.text,
-            userInfo: platform.userInfo
-        });
+        if (this.gradeTime > 670) {
+            Data.i().Toast('难度过低不会将分数更新至排行榜', 3000);
+        }
+        else {
+            platform.openDataContext.postMessage({
+                command: 'updateScore',
+                score: this.score.text,
+                userInfo: platform.userInfo
+            });
+        }
         var reBegin = new eui.Label('重新开始');
         reBegin.alpha = 0;
         reBegin.horizontalCenter = 0;
@@ -324,7 +332,7 @@ var Game = (function (_super) {
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             platform.playAudio('resource/music/tap1.mp3');
             platform.shareToFriend({
-                title: '我得了' + this.score.text + '分, 快来挑战我吧',
+                title: (platform.userInfo ? platform.userInfo.nickName : '这位') + ' 同学居然混到了' + this.score.text + '分, 求求你们快点超过他吧',
                 imageUrl: 'resource/game_res/share1.jpg'
             });
         }
@@ -382,9 +390,8 @@ var Game = (function (_super) {
     Game.prototype.leftRound = function () {
         var _this = this;
         platform.shake(1); // 震动效果
-        egret.Tween.removeTweens(this.circleGroup);
+        // egret.Tween.removeTweens(this.circleGroup);
         var timekeep = 0;
-        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 5;
         if (this.currTemp == -180)
             this.circleGroup.rotation = 180;
         this.currentColorIndex = (++this.currentColorIndex) % 6;
@@ -393,14 +400,14 @@ var Game = (function (_super) {
             this.currentDeg = 360 + this.currentDeg;
         }
         this.currTemp = this.currentDeg;
-        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 5;
+        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 252 / 60;
         egret.Tween.get(this.circleGroup).to({ rotation: this.currTemp }, timekeep, egret.Ease.sineInOut).call(function () {
             console.log(_this.colorList[_this.currentColorIndex], _this.currentColorIndex, _this.currentDeg, _this.circleGroup.rotation);
         });
     };
     Game.prototype.RightRound = function () {
         platform.shake(1); // 震动效果
-        egret.Tween.removeTweens(this.circleGroup);
+        // egret.Tween.removeTweens(this.circleGroup);
         var timekeep = 0;
         if (this.currTemp == 180)
             this.circleGroup.rotation = -180;
@@ -412,7 +419,7 @@ var Game = (function (_super) {
             this.currentDeg = this.currentDeg - 360;
         }
         this.currTemp = this.currentDeg;
-        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 5;
+        timekeep = Math.abs(this.circleGroup.rotation - this.currTemp) * 252 / 60;
         egret.Tween.get(this.circleGroup).to({ rotation: this.currTemp }, timekeep, egret.Ease.sineInOut).call(function () {
             // console.log(this.colorList[this.currentColorIndex], this.currentColorIndex, this.currentDeg , this.circleGroup.rotation)
         });

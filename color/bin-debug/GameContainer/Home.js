@@ -427,7 +427,7 @@ var Home = (function (_super) {
             platform.playAudio('resource/music/tap1.mp3');
             egret.setTimeout(function () {
                 platform.shareToFriend({
-                    title: '快来和我一起玩球球',
+                    title: '快来和我一起玩这个球',
                     imageUrl: 'resource/game_res/share1.jpg'
                 });
             }, this, 80);
@@ -496,11 +496,11 @@ var Home = (function (_super) {
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
             console.log('进入难度等级');
             platform.playAudio('resource/music/tap1.mp3');
-            // this.removeSelf();
-            // this._GameContainer.createGrade();
-            egret.setTimeout(function () {
-                Data.i().Toast('暂未开放');
-            }, this, 80);
+            this.removeSelf();
+            this._GameContainer.createGrade();
+            // egret.setTimeout(() => {
+            //     Data.i().Toast('暂未开放')
+            // }, this, 80)
         }
     };
     Home.prototype.suggestBegin = function () {

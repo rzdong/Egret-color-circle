@@ -156,9 +156,18 @@ var Main = (function (_super) {
      * Create scene interface
      */
     Main.prototype.createGameScene = function () {
+        var _this = this;
         Data.i().toast = new Toast();
-        this.addChild(new GameScene());
-        this.addChild(Data.i().toast);
+        platform.getFromStorage('_KEY_GRADE_').then(function (res) {
+            console.log("_KEY_GRADE_", res.data);
+            if (res.data != '')
+                Data.i().grade = Number(res.data);
+            _this.addChild(new GameScene());
+            _this.addChild(Data.i().toast);
+        }).catch(function () {
+            _this.addChild(new GameScene());
+            _this.addChild(Data.i().toast);
+        });
         var arr = [
             'jump_wav',
             // 'tap1_mp3',

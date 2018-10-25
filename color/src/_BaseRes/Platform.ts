@@ -27,6 +27,8 @@ declare interface Platform {
     feedBackBtn: any
     hideFeedBack()
     showFeedBack()
+    setToStorage(key: string, value: any)
+    getFromStorage(key: string): Promise<any>
 }
 
 class DebugPlatform implements Platform {
@@ -69,6 +71,14 @@ class DebugPlatform implements Platform {
     }
     showFeedBack(){
         
+    }
+
+    setToStorage(key: string, value: any){
+
+    }
+
+    async getFromStorage(key: string) {
+
     }
     
 }

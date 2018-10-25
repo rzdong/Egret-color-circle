@@ -25,13 +25,19 @@ class Game extends BaseUILayer {
     // private circleStatus: Array<any> = []
     private _GameContainer: GameContainer; // 父类实例
 
+
+    private gradeTime: number = 750;
+
     constructor(GC: GameContainer){
         super();
         this._GameContainer = GC;
     }
 
     protected init() {
-        console.log('Game已加载')
+        
+
+        this.gradeTime = Data.i().grade;
+        console.log('Game已加载，难度：', this.gradeTime)
         platform.hideFeedBack()
         this.colorList = ['violet', 'dyellow', 'blue', 'red' ,'yellow', 'green']
         this.colorTexture = [
@@ -192,7 +198,7 @@ class Game extends BaseUILayer {
                 })
             }
             
-        }}).to({y: 600}, 720, egret.Ease.cubicIn)
+        }}).to({y: 600}, this.gradeTime, egret.Ease.cubicIn)
             .call(() => {
                 
                 if(this.nextColorIndex != this.currentColorIndex){
@@ -221,7 +227,7 @@ class Game extends BaseUILayer {
 
                 
             })
-            .to({y: Height / 2 - 150}, 720, egret.Ease.circOut)
+            .to({y: Height / 2 - 150}, this.gradeTime, egret.Ease.circOut)
     }
     private gameOverMusic;
     // private homeBitmap: egret.Bitmap
@@ -281,12 +287,15 @@ class Game extends BaseUILayer {
 
         console.error('platform.userInfo', platform.userInfo)
 
-        platform.openDataContext.postMessage({
-            command: 'updateScore',
-            score: this.score.text,
-            userInfo: platform.userInfo
-        })
-
+        if(this.gradeTime > 670 ){
+            Data.i().Toast('难度过低不会将分数更新至排行榜', 3000)
+        }else {
+            platform.openDataContext.postMessage({
+                command: 'updateScore',
+                score: this.score.text,
+                userInfo: platform.userInfo
+            })
+        }
 
         let reBegin = new eui.Label('重新开始');
         reBegin.alpha = 0;
@@ -408,7 +417,7 @@ class Game extends BaseUILayer {
         }else if(ev.type == egret.TouchEvent.TOUCH_END){
             platform.playAudio('resource/music/tap1.mp3')
             platform.shareToFriend({
-                title: '我得了' + this.score.text + '分, 快来挑战我吧',
+                title: (platform.userInfo ? platform.userInfo.nickName : '这位') +' 同学居然混到了' + this.score.text + '分, 求求你们快点超过他吧',
                 imageUrl: 'resource/game_res/share1.jpg'
             })
         }

@@ -17,7 +17,7 @@ var Grade = (function (_super) {
     }
     Grade.prototype.init = function () {
         var _this = this;
-        var Width = 800;
+        var Width = 700;
         var Height = 500;
         this.backBitmap = Util.createBitmapByName('back_png');
         this.backBitmap.touchEnabled = true;
@@ -30,7 +30,7 @@ var Grade = (function (_super) {
         this.addChild(this.backBitmap);
         this.backBitmap.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.backBegin, this);
         var vLayout = new eui.VerticalLayout();
-        vLayout.gap = 10;
+        vLayout.gap = 30;
         vLayout.paddingTop = 15;
         vLayout.paddingRight = 15;
         vLayout.paddingBottom = 15;
@@ -49,34 +49,99 @@ var Grade = (function (_super) {
         this.addChild(this.swiper);
         this.swiper.verticalScrollBar.autoVisibility = false;
         this.swiper.verticalScrollBar.visible = false;
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
-        group.addChild(new eui.Label('难度'));
+        var label1 = new eui.Label();
+        label1.text = '请选择一个难度(注意：只有 [一般] 及其以上的难度才会被计入排行榜)';
+        label1.textColor = 0xffffff;
+        label1.size = 30;
+        label1.horizontalCenter = 0;
+        label1.verticalCenter = -this.stage.stageHeight / 2;
+        this.addChild(label1);
+        ///单选按钮组
+        var radioGroup = new eui.RadioButtonGroup();
+        /*** 本示例关键代码段开始 ***/
+        var radio0 = new eui.RadioButton();
+        radio0.height = 50;
+        radio0.label = "手残党（950ms）";
+        ///设置单选按钮所属组件，同一组件内的只能选择一个单选按钮组
+        radio0.group = radioGroup;
+        radio0.value = "950";
+        radio0.addEventListener(egret.Event.CHANGE, this.onChange, this);
+        group.addChild(radio0);
+        var radio1 = new eui.RadioButton();
+        radio1.height = 50;
+        radio1.label = "入门（750ms）";
+        ///设置单选按钮所属组件，同一组件内的只能选择一个单选按钮组
+        radio1.group = radioGroup;
+        radio1.value = "750";
+        radio1.addEventListener(egret.Event.CHANGE, this.onChange, this);
+        group.addChild(radio1);
+        var radio2 = new eui.RadioButton();
+        radio2.height = 50;
+        radio2.label = "简单（710ms）";
+        radio2.group = radioGroup;
+        radio2.value = "710";
+        radio2.addEventListener(egret.Event.CHANGE, this.onChange, this);
+        group.addChild(radio2);
+        var radio3 = new eui.RadioButton();
+        radio3.height = 50;
+        radio3.label = "一般（660ms）";
+        radio3.group = radioGroup;
+        radio3.value = "660";
+        radio3.addEventListener(egret.Event.CHANGE, this.onChange, this);
+        group.addChild(radio3);
+        var radio4 = new eui.RadioButton();
+        radio4.height = 50;
+        radio4.label = "困难（620ms）";
+        radio4.group = radioGroup;
+        radio4.value = "620";
+        radio4.addEventListener(egret.Event.CHANGE, this.onChange, this);
+        group.addChild(radio4);
+        var radio5 = new eui.RadioButton();
+        radio5.height = 50;
+        radio5.label = "非人类（510ms）";
+        radio5.group = radioGroup;
+        radio5.value = "510";
+        radio5.addEventListener(egret.Event.CHANGE, this.onChange, this);
+        group.addChild(radio5);
+        radioGroup.selectedValue = Data.i().grade + '';
         this.addChild(this.swiper);
-        egret.Tween.get(this.swiper).to({ verticalCenter: 0 }, 400, egret.Ease.backOut).call(function () {
+        egret.Tween.get(this.swiper).to({ verticalCenter: 70 }, 400, egret.Ease.backOut).call(function () {
             egret.Tween.removeTweens(_this.swiper);
         });
+        egret.Tween.get(label1).to({ verticalCenter: -Height / 2 }, 400, egret.Ease.backOut).call(function () {
+            egret.Tween.removeTweens(label1);
+        });
+    };
+    Grade.prototype.onChange = function (e) {
+        platform.playAudio('resource/music/tap.mp3');
+        var radioButton = e.target;
+        ///获取选择到的单选按钮的值
+        var value = radioButton.value;
+        Data.i().grade = Number(value);
+        platform.setToStorage('_KEY_GRADE_', value);
+        var str = '';
+        switch (value) {
+            case "950":
+                str = "手残党";
+                break;
+            case "750":
+                str = "入门";
+                break;
+            case "710":
+                str = "简单";
+                break;
+            case "660":
+                str = "一般";
+                break;
+            case "620":
+                str = "困难";
+                break;
+            case "510":
+                str = "非人类";
+                break;
+        }
+        Data.i().Toast('已为您切换到 [' + str + '] 级别');
+        console.log('value: ' + value, str);
     };
     Grade.prototype.backBegin = function () {
         this.backBitmap.scaleX = 0.9;
@@ -92,6 +157,7 @@ var Grade = (function (_super) {
         if (ev.type == egret.TouchEvent.TOUCH_RELEASE_OUTSIDE) {
         }
         else if (ev.type == egret.TouchEvent.TOUCH_END) {
+            platform.playAudio('resource/music/tap1.mp3');
             console.log('进入游戏');
             this.beforeRemove();
             this._GameContainer.createHome();

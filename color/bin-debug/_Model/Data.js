@@ -19,6 +19,7 @@ var Data = (function (_super) {
     function Data() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.toast = null;
+        _this.grade = 750;
         return _this;
     }
     Data.i = function () {
@@ -31,7 +32,7 @@ var Data = (function (_super) {
         }
     };
     Data.prototype.Toast = function (str, time) {
-        this.toast.Toast(str);
+        this.toast.Toast(str, time);
     };
     Data.prototype.Sound = function (str) {
         return this.sound.getSound(str);

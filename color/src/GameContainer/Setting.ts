@@ -5,7 +5,7 @@ class Setting extends BaseUILayer {
 	private backBitmap: egret.Bitmap;
 	private swiper: eui.Scroller;
 
-
+	
 	public constructor(GC: GameContainer) {
 		super()
 		this._GameContainer = GC;
@@ -53,30 +53,7 @@ class Setting extends BaseUILayer {
 		this.swiper.verticalScrollBar.visible = false;
 
 
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
-		group.addChild(new eui.Label('设置'))
+		
 
 		this.addChild(this.swiper)
 	
@@ -86,6 +63,9 @@ class Setting extends BaseUILayer {
 
 
 	}
+
+
+
 
 	private backBegin(): void {
 		this.backBitmap.scaleX = 0.9;

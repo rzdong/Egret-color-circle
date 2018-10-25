@@ -19,6 +19,7 @@ class WxgamePlatform {
     getUserInfo(cb) {
       wx.getSetting({
         success: (res) => {
+          console.log('res.authSetting', res.authSetting)
           if (res.authSetting['scope.userInfo']){
               wx.getUserInfo({
                 lang: 'en',
@@ -54,6 +55,9 @@ class WxgamePlatform {
               button.destroy()
             })
           }
+        },
+        fail: (err) => {
+          console.log('getSetting fail', err)
         }
       })
     }
@@ -171,6 +175,24 @@ class WxgamePlatform {
       complete: () => {
 
       }
+    })
+  }
+
+  setToStorage(key, value){
+    wx.setStorageSync(key, value)
+  }
+
+  getFromStorage(key){
+    return new Promise((resolve, reject) => {
+      wx.getStorage({
+        key: key,
+        success: function (res) {
+          resolve(res)
+        },
+        fail: function (res) {
+          reject(res)
+        }
+      })
     })
   }
 

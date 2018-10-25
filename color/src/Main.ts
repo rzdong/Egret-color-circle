@@ -102,9 +102,22 @@ class Main extends eui.UILayer {
     protected createGameScene(): void {
 
         Data.i().toast = new Toast()
+        
 
-        this.addChild(new GameScene());
-        this.addChild(Data.i().toast);
+
+        platform.getFromStorage('_KEY_GRADE_').then((res) => {
+            console.log("_KEY_GRADE_", res.data)
+            if(res.data != '')
+                Data.i().grade = Number(res.data)
+            this.addChild(new GameScene());
+            this.addChild(Data.i().toast);
+        }).catch(() => {
+            this.addChild(new GameScene());
+            this.addChild(Data.i().toast);
+        })
+
+        
+        
 
 
         let arr = [

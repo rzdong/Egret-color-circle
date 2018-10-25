@@ -18,7 +18,7 @@ class Data extends egret.EventDispatcher{
 
     public toast: Toast = null;
     public Toast(str: string, time?: number){
-        this.toast.Toast(str)
+        this.toast.Toast(str, time)
     }
 
 
@@ -26,4 +26,9 @@ class Data extends egret.EventDispatcher{
     public Sound(str: string): Sound{
         return this.sound.getSound(str);
     }
+
+
+    public grade: number = 750;
+
+    
 }
