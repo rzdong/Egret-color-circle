@@ -102,17 +102,17 @@ class WxgamePlatform {
   }
   feedBackBtn = null
   createFeedbackButton() {
-    wx.setUserCloudStorage({
-      KVDataList: [{ key: 'maxScore', value: '0' }],
-      success: (res) => {
-        // updateRank()
-      },
-      fail: (err) => {
-      },
-      complete: () => {
+    // wx.setUserCloudStorage({
+    //   KVDataList: [{ key: 'maxScore', value: '0' }],
+    //   success: (res) => {
+    //     // updateRank()
+    //   },
+    //   fail: (err) => {
+    //   },
+    //   complete: () => {
 
-      }
-    })
+    //   }
+    // })
     // wx.removeUserCloudStorage({
     //   keyList: ['score']
     // })
